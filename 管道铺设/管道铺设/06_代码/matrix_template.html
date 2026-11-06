@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>无向图 · 距离矩阵 · Prim / Kruskal 生成过程</title>
+<script>__ENGINE_JS__</script>
+<script>window.__BUNDLE__ = __BUNDLE_JSON__;</script>
+<script src="graph_matrix.js"></script>
+<style>
+  :root{--bg:#0a0e14;--panel:#111823;--line:#223041;--txt:#dbe6f3;--dim:#8fa3b8;--acc:#ffb300;
+        --ok:#26a69a;--bad:#ef5350;}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--txt);
+    font:14px/1.5 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;overflow:hidden}
+  #app{display:grid;grid-template-columns:328px 1fr;grid-template-rows:50px 1fr;height:100%}
+  header{grid-column:1/3;display:flex;align-items:center;gap:12px;padding:0 16px;
+    background:linear-gradient(90deg,#0f1621,#0b1119);border-bottom:1px solid var(--line)}
+  header h1{font-size:16px;margin:0}
+  header .sub{color:var(--dim);font-size:12px}
+  #syncTag{margin-left:auto;font-size:11px;padding:3px 9px;border-radius:12px;
+    border:1px solid #2b4a63;background:#10202c;color:#9fd8ff;white-space:nowrap}
+  #syncTag.live{border-color:#2e7d6b;background:#0e2320;color:#5ee0c0}
+  #panel{background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:12px}
+  #panel h3{font-size:12px;color:var(--dim);margin:12px 0 6px;letter-spacing:1px}
+  .row{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:2px 0}
+  .row .k{color:var(--dim)} .row .v{font-variant-numeric:tabular-nums;text-align:right}
+  button{background:#172230;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:5px 9px;font-size:12px;cursor:pointer}
+  button:hover{border-color:#3a5372} button.on{border-color:var(--acc);color:var(--acc)}
+  select{background:#172230;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:4px;font-size:12px;width:100%}
+  #stage{position:relative;overflow:hidden;background:#06090d}
+  #svg{width:100%;height:100%;display:block}
+  #matrixBox{position:absolute;left:12px;top:12px;width:340px;max-height:46%;background:rgba(10,14,20,.94);
+    border:1px solid var(--line);border-radius:8px;padding:6px 8px;display:none}
+  #matrixBox pre{margin:0;font:11px/1.45 Consolas,monospace;color:#9fb3c8;overflow:auto;max-height:38vh}
+  #matrixBox .h,#procBox .h{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--dim);margin-bottom:4px}
+  #procBox{position:absolute;right:12px;top:12px;width:370px;max-height:62%;background:rgba(10,14,20,.94);
+    border:1px solid var(--line);border-radius:8px;padding:6px 8px;display:none}
+  #procBox pre{margin:0;font:11px/1.45 Consolas,monospace;color:#c7d6e6;overflow:auto;max-height:56vh;white-space:pre-wrap}
+  #hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);background:rgba(8,12,18,.86);
+    border:1px solid var(--line);border-radius:18px;padding:5px 14px;font-size:12px;color:var(--dim);white-space:nowrap}
+  #status{font-size:12px;color:var(--acc);margin-top:6px}
+  .lbl{font-size:11px;fill:#cddcea;paint-order:stroke;stroke:#06090d;stroke-width:2.5px}
+  .src{font-size:12px;fill:#ffd54f}
+  .exlbl{fill:#6b7c8f;text-decoration:line-through}
+  #exList{font-size:11px;color:#ff8a80;line-height:1.7;word-break:break-all;
+    background:#1a0f0f;border:1px solid #4a2020;border-radius:6px;padding:5px 7px;margin-top:4px;display:none}
+  #exList b{color:#ffb300}
+  .tgtGrid{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+  .tchip{font:11px/1.4 Consolas,monospace;padding:1px 5px;border-radius:10px;border:1px solid #2b3d52;
+    background:#131e2a;color:#8fa3b8;cursor:pointer;user-select:none}
+  .tchip.ex{background:#3a1414;border-color:#7f2b2b;color:#ff8a80;text-decoration:line-through}
+  #emptyNote{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(13,20,29,.96);
+    border:1px solid var(--line);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--dim);
+    text-align:center;display:none;line-height:1.8}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>无向图 · 距离矩阵 · Prim / Kruskal 生成过程</h1>
+    <span class="sub" id="sub"></span>
+    <span id="syncTag">独立视角 · 默认全校方案</span>
+  </header>
+
+  <aside id="panel">
+    <h3>数据来源</h3>
+    <div class="row"><span class="k">节点数</span><span class="v" id="nNode">—</span></div>
+    <div class="row"><span class="k">矩阵</span><span class="v" id="nMat">—</span></div>
+    <div class="row"><span class="k">当前方案</span><span class="v" id="curPlan">—</span></div>
+    <div class="row"><span class="k">起点</span><span class="v" id="curSrc">—</span></div>
+    <div id="exList"></div>
+    <div style="margin:8px 0"><input type="file" id="file" accept=".txt" style="width:100%;font-size:12px"></div>
+    <div style="font-size:11px;color:#5d7187;line-height:1.6">
+      默认跟随规划台的当前选择（模式 / 排除编号 / 起点 / 接入点）。<br>
+      也可选任意同格式文本独立查看。
+    </div>
+
+    <h3>本页可改的选择</h3>
+    <select id="modeSel">
+      <option value="A">模式 A · 全校（默认起点）</option>
+      <option value="B">模式 B · 排除建筑后重算</option>
+      <option value="C">模式 C · 指定起点</option>
+    </select>
+    <div id="bBox" style="display:none;margin-top:6px">
+      <div style="font-size:11px;color:#7d93a8">点编号切换排除/纳入：</div>
+      <div class="tgtGrid" id="tgtGrid"></div>
+    </div>
+    <div id="cBox" style="display:none;margin-top:6px">
+      <div style="font-size:11px;color:#7d93a8">起点（点图或选门）：</div>
+      <select id="gateSel"></select>
+    </div>
+    <div class="row" style="margin-top:6px"><span class="k">目标数</span><span class="v" id="nTgt">—</span></div>
+    <div class="row"><span class="k">MST 总长</span><span class="v" id="mtLen">—</span></div>
+    <div class="row" style="margin-top:4px">
+      <button id="btnRecompute" style="width:100%">按当前选择重算</button>
+    </div>
+
+    <h3>算法</h3>
+    <select id="algo"><option value="kruskal">Kruskal（并查集）</option><option value="prim">Prim（从水源）</option></select>
+    <div class="row" style="margin-top:6px"><span class="k">Kruskal 总长</span><span class="v" id="kru">—</span></div>
+    <div class="row"><span class="k">Prim 总长</span><span class="v" id="pri">—</span></div>
+    <div class="row"><span class="k">两者差</span><span class="v" id="diff">—</span></div>
+
+    <h3>生成过程</h3>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button id="prev">上一步</button>
+      <button id="next">下一步</button>
+      <button id="play">播放</button>
+      <button id="reset">重置</button>
+      <button id="all">全部展开</button>
+    </div>
+    <div id="status">第 0 / 0 条</div>
+    <div class="row" style="margin-top:6px"><span class="k">当前边</span><span class="v" id="cur">—</span></div>
+    <div class="row"><span class="k">累计</span><span class="v" id="acc">—</span></div>
+
+    <h3>查看 / 导出</h3>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button id="showMat">矩阵文本</button>
+      <button id="showProc">过程文本</button>
+      <button id="export">导出过程</button>
+      <button id="exportMat">导出矩阵</button>
+    </div>
+    <div style="font-size:11px;color:#5d7187;margin-top:10px;line-height:1.7">
+      边权 = 沿路网加权距离（m），与主数据 MST 同一套算法与权重。<br>
+      本页图形按建筑/水源经纬度投影；边为示意，不表示实际路由走向。
+    </div>
+  </aside>
+
+  <main id="stage">
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div id="emptyNote"></div>
+    <div id="matrixBox"><div class="h"><span>矩阵文本</span><button id="closeMat">×</button></div><pre id="matPre"></pre></div>
+    <div id="procBox"><div class="h"><span>生成过程文本</span><button id="closeProc">×</button></div><pre id="procPre"></pre></div>
+    <div id="hint">点“下一步/播放”逐条生成；矩阵与过程都可导出为文本</div>
+  </main>
+</div>
+
+<script>
+(function(){
+'use strict';
+const svg=document.getElementById('svg');
+const SVGNS='http://www.w3.org/2000/svg';
+const GATES=[
+  {name:'7号门（南主门，默认）', lat:39.902950, lon:119.517905},
+  {name:'6号门', lat:39.916682, lon:119.512308},
+  {name:'5号门', lat:39.909810, lon:119.530025}
+];
+
+let rawText=window.GRAPH_MATRIX_TEXT||'';
+let N=0, nodes=[], M=[];
+let algo='kruskal', steps=[], k=0, timer=null;
+let engine=null, bundle=null;
+let liveMode=null;          // null = 用静态文件；否则跟随规划的当前选择
+let liveEx=new Set();
+let liveSrc=null;           // {lat,lon,name}
+let liveTargets=[];         // 模式 C 额外接入点
+let livePlan=null;
+let mode='A';
+let exSet=new Set();
+let srcLat=39.902950, srcLon=119.517905, srcName=GATES[0].name;
+
+const H0=new URLSearchParams(location.hash.slice(1));
+const WANT_STEP=H0.get('step')!==null?parseInt(H0.get('step'),10):null;
+
+// ---------------- 解析 / 载入矩阵文本 ----------------
+function parse(text){
+  const lines=text.split(/\r?\n/);
+  let md='', n=0, nd=[], mat=[];
+  for(const line of lines){
+    const s=line.trim();
+    if(!s) continue;
+    const mn=s.match(/^#\s*N\s*=\s*(\d+)/); if(mn) n=parseInt(mn[1],10);
+    else if(s==='#NODES') md='nodes';
+    else if(s==='#MATRIX') md='matrix';
+    else if(s.startsWith('#')) continue;
+    else if(md==='nodes'){
+      const p=s.split('|');
+      if(p.length>=6) nd.push({idx:+p[0],id:p[1],name:p[2],cat:p[3],lat:+p[4],lon:+p[5]});
+    } else if(md==='matrix'){
+      mat.push(s.split(/\s+/).map(v=>v==='-1'?Infinity:parseFloat(v)));
+    }
+  }
+  return {n, nd, mat};
+}
+function load(text, tag){
+  rawText=text;
+  const r=parse(text); N=r.n; nodes=r.nd; M=r.mat;
+  document.getElementById('nNode').textContent=N||'—';
+  document.getElementById('nMat').textContent=(M.length?M.length+'×'+(M[0]||[]).length:'—');
+  document.getElementById('curPlan').textContent=tag||'静态文件';
+  if(!N||M.length!==N){ fail('矩阵格式不对：N='+N+'，行数='+M.length); return; }
+  document.getElementById('matPre').textContent=text;
+  compute(); k=0; fit(); draw(); update();
+  if(WANT_STEP!==null && isFinite(WANT_STEP)){ k=Math.max(0,Math.min(steps.length,WANT_STEP)); update(); }
+}
+function fail(msg){ document.getElementById('status').textContent=msg; }
+
+// ---------------- 两个算法 ----------------
+function kruskalMST(){
+  const pairs=[];
+  for(let i=0;i<N;i++) for(let j=i+1;j<N;j++) if(isFinite(M[i][j])) pairs.push([M[i][j],i,j]);
+  pairs.sort((a,b)=>a[0]-b[0]);
+  const par=Array.from({length:N},(_,i)=>i);
+  const find=a=>{while(par[a]!==a){par[a]=par[par[a]];a=par[a];}return a;};
+  const out=[]; let sum=0;
+  for(const [w,a,b] of pairs){
+    const ra=find(a), rb=find(b);
+    if(ra!==rb){ par[ra]=rb; sum+=w; out.push({a,b,w}); if(out.length===N-1) break; }
+  }
+  return {edges:out,sum};
+}
+function primMST(){
+  const used=new Set([0]), out=[]; let sum=0;
+  const best=Array(N).fill(Infinity), from=Array(N).fill(0);
+  for(let j=1;j<N;j++) best[j]=M[0][j];
+  while(used.size<N){
+    let j=-1;
+    for(let t=0;t<N;t++) if(!used.has(t) && (j<0 || best[t]<best[j])) j=t;
+    if(j<0 || !isFinite(best[j])) break;
+    sum+=best[j]; out.push({a:from[j],b:j,w:best[j]}); used.add(j);
+    for(let t=0;t<N;t++) if(!used.has(t) && M[j][t]<best[t]){ best[t]=M[j][t]; from[t]=j; }
+  }
+  return {edges:out,sum};
+}
+function compute(){
+  const kr=kruskalMST(), pr=primMST();
+  const f=v=>v.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+  document.getElementById('kru').textContent=f(kr.sum)+' m';
+  document.getElementById('pri').textContent=f(pr.sum)+' m';
+  document.getElementById('diff').textContent=f(Math.abs(kr.sum-pr.sum))+' m';
+  steps=(algo==='kruskal'?kr:pr).edges;
+  document.getElementById('nTgt').textContent=(N?N-1:0)+' 个';
+  document.getElementById('mtLen').textContent=f(kr.sum)+' m';
+  buildProc();
+}
+function buildProc(){
+  const f=v=>v.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const title=algo==='kruskal'?'Kruskal（按边权升序，并查集）':'Prim（从起点出发，每次选最近节点）';
+  const lines=['燕山大学西校区给水管道规划 · MST 生成过程',
+    '方案：'+(document.getElementById('curPlan').textContent||'—'),
+    '起点：'+((nodes[0]&&nodes[0].name)||'—'),
+    '算法：'+title,'节点数 '+N+'（0=起点，1..'+(N-1)+'=供水目标）',''];
+  let acc=0;
+  steps.forEach((e,i)=>{
+    acc+=e.w;
+    lines.push((i+1).toString().padStart(2,' ')+'. '+e.a+'('+nodes[e.a].id+') -- '+e.b+'('+nodes[e.b].id+')  '
+      +e.w.toFixed(1)+' m  累计 '+acc.toFixed(1)+' m');
+  });
+  lines.push('','总长 '+acc.toFixed(3)+' m，'+steps.length+' 条边');
+  document.getElementById('procPre').textContent=lines.join('\n');
+}
+
+// ---------------- 画图 ----------------
+function proj(lat,lon){ return [(lon-119.5172)*85386.989,(lat-39.9111)*111320]; }
+function fit(){
+  if(!nodes.length) return;
+  let xs=[],ys=[];
+  for(const n of nodes){ const p=proj(n.lat,n.lon); xs.push(p[0]); ys.push(p[1]); }
+  const pad=90, x0=Math.min(...xs)-pad, x1=Math.max(...xs)+pad, y0=Math.min(...ys)-pad, y1=Math.max(...ys)+pad;
+  svg.setAttribute('viewBox',`${x0} ${-y1} ${x1-x0} ${y1-y0}`);
+}
+function el(t,a){ const n=document.createElementNS(SVGNS,t); for(const kk in a)n.setAttribute(kk,a[kk]); return n; }
+function draw(){
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const g=el('g',{});
+  g.appendChild(el('rect',{x:-5000,y:-5000,width:12000,height:12000,fill:'#06090d'}));
+  const taken=new Set();
+  for(let i=0;i<Math.min(k,steps.length);i++){
+    const e=steps[i];
+    const a=proj(nodes[e.a].lat,nodes[e.a].lon), b=proj(nodes[e.b].lat,nodes[e.b].lon);
+    const latest=(i===k-1);
+    taken.add(e.a); taken.add(e.b);
+    g.appendChild(el('line',{x1:a[0],y1:-a[1],x2:b[0],y2:-b[1],
+      stroke:latest?'#ffb300':'#4fc3f7','stroke-width':latest?4:2.2,opacity:latest?1:0.85,
+      'stroke-linecap':'round'}));
+  }
+  for(const n of nodes){
+    const p=proj(n.lat,n.lon);
+    const isSrc=n.cat==='source';
+    g.appendChild(el('circle',{cx:p[0],cy:-p[1],r:isSrc?6:3.6,
+      fill:isSrc?'#ffd54f':(taken.has(n.idx)?'#26c6da':'#26c6da'),
+      stroke:'#06090d','stroke-width':1.2}));
+    if(isSrc){
+      const t=el('text',{x:p[0]+8,y:-p[1]+4,class:'src'}); t.textContent='★起点'; g.appendChild(t);
+      const t2=el('text',{x:p[0]+8,y:-p[1]+17,class:'lbl'}); t2.textContent=n.name.slice(0,10); g.appendChild(t2);
+    } else {
+      const t=el('text',{x:p[0]+5,y:-p[1]-5,class:'lbl'}); t.textContent=n.id; g.appendChild(t);
+    }
+  }
+  svg.appendChild(g);
+}
+function update(){
+  const total=steps.length;
+  document.getElementById('status').textContent='第 '+k+' / '+total+' 条';
+  if(k>0){ const e=steps[k-1]; document.getElementById('cur').textContent=nodes[e.a].id+' → '+nodes[e.b].id+' · '+e.w.toFixed(1)+' m'; }
+  else { document.getElementById('cur').textContent='—'; }
+  document.getElementById('acc').textContent=k?steps.slice(0,k).reduce((s,e)=>s+e.w,0).toFixed(1)+' m':'—';
+  draw();
+}
+
+// ---------------- 跟随规划台选择 ----------------
+function planToMatrix(res, tag){
+  N=res.labels.length; nodes=res.labels; M=res.matrix.map(row=>row.map(v=>(v<0||!isFinite(v))?Infinity:v));
+  document.getElementById('nNode').textContent=N;
+  document.getElementById('nMat').textContent=N+'×'+N;
+  document.getElementById('curPlan').textContent=tag;
+  document.getElementById('curSrc').textContent=res.source.name;
+  document.getElementById('matPre').textContent=engine.matrixText(res,['跟随规划台当前选择']);
+  compute(); k=0; fit(); update();
+}
+function setSyncTag(live, label){
+  const t=document.getElementById('syncTag');
+  t.textContent=live ? ('已同步 · '+label) : '独立视角 · 默认全校方案';
+  t.classList.toggle('live', !!live);
+}
+function applyMode(){
+  mode=document.getElementById('modeSel').value;
+  document.getElementById('bBox').style.display=(mode==='B')?'block':'none';
+  document.getElementById('cBox').style.display=(mode==='C')?'block':'none';
+  recomputeLive();
+}
+function recomputeLive(){
+  if(!engine){ return; }
+  let res;
+  if(mode==='C'){
+    // 模式 C：只连已选的终点，不铺全校
+    res=engine.plan({source:{lat:srcLat,lon:srcLon}, sourceName:srcName,
+                     scope:'picked', pickedBuildings:[],
+                     extra:liveTargets.map((t,i)=>t.bid
+                       ? (function(b){ return {id:b.id, lat:b.lat, lon:b.lon,
+                           label:b.short||b.name, name:b.name, cat:b.cat,
+                           demand:b.demand||0, isBuilding:true}; })(bundle.buildings.find(z=>z.id===t.bid))
+                       : {id:'接入点'+(i+1), lat:t.lat, lon:t.lon,
+                          label:'接入点 '+(i+1), name:'接入点 '+(i+1), demand:0, isBuilding:false})
+                        .filter(Boolean)});
+  }else if(mode==='B'){
+    res=engine.plan({source:null, gates:GATES, excluded:[...exSet], auto:true});
+  }else{
+    res=engine.plan({source:null, gates:GATES, excluded:[], auto:false});
+  }
+  if(!res||!res.ok){
+    livePlan=null;
+    document.getElementById('emptyNote').style.display='block';
+    document.getElementById('emptyNote').innerHTML='<b>这个选择算不出方案</b><br>'
+      + ((res&&res.error)||'请减少排除的楼，或换一个起点') ;
+    document.getElementById('nTgt').textContent='—';
+    document.getElementById('mtLen').textContent='—';
+    return;
+  }
+  document.getElementById('emptyNote').style.display='none';
+  livePlan=res;
+  const label={A:'模式 A 全校',B:'模式 B 已排除 '+exSet.size+' 栋',C:'模式 C 手选起点'}[mode];
+  planToMatrix(res, label);
+  setSyncTag(true, label);
+  const ex=document.getElementById('exList');
+  const exIds=(mode==='B'&&exSet.size)?[...exSet]:[];
+  if(exIds.length){
+    ex.style.display='block';
+    ex.innerHTML='<b>已排除 '+exIds.length+' 栋：</b>'+exIds.join('、');
+  }else{ ex.style.display='none'; }
+  document.getElementById('sub').textContent='N='+N+' · 权重 m · 与规划台同口径';
+}
+function buildTargetGrid(){
+  if(!engine) return;
+  const list=engine.targets({});
+  document.getElementById('tgtGrid').innerHTML=list.map(t=>
+    `<span class="tchip" data-id="${t.id}" title="${t.name}">${t.id}</span>`).join('');
+  document.getElementById('tgtGrid').onclick=e=>{
+    const c=e.target.closest('.tchip'); if(!c) return;
+    const id=c.dataset.id;
+    if(exSet.has(id)) exSet.delete(id); else exSet.add(id);
+    c.classList.toggle('ex', exSet.has(id));
+    recomputeLive();
+  };
+}
+
+// ---------------- 控件 ----------------
+document.getElementById('algo').onchange=e=>{ algo=e.target.value; compute(); k=0; update(); };
+document.getElementById('next').onclick=()=>{ if(k<steps.length){k++;update();} };
+document.getElementById('prev').onclick=()=>{ if(k>0){k--;update();} };
+document.getElementById('reset').onclick=()=>{ k=0; update(); };
+document.getElementById('all').onclick=()=>{ k=steps.length; update(); };
+document.getElementById('play').onclick=()=>{
+  if(timer){ clearInterval(timer); timer=null; document.getElementById('play').classList.remove('on'); return; }
+  if(k>=steps.length) k=0;
+  document.getElementById('play').classList.add('on');
+  timer=setInterval(()=>{ if(k<steps.length){k++;update();}
+    else { clearInterval(timer); timer=null; document.getElementById('play').classList.remove('on'); } },260);
+};
+document.getElementById('showMat').onclick=()=>{ const b=document.getElementById('matrixBox'); b.style.display=b.style.display==='block'?'none':'block'; };
+document.getElementById('showProc').onclick=()=>{ const b=document.getElementById('procBox'); b.style.display=b.style.display==='block'?'none':'block'; };
+document.getElementById('closeMat').onclick=()=>document.getElementById('matrixBox').style.display='none';
+document.getElementById('closeProc').onclick=()=>document.getElementById('procBox').style.display='none';
+document.getElementById('export').onclick=()=>{
+  const blob=new Blob([document.getElementById('procPre').textContent],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='mst_process_'+algo+'_N'+N+'.txt'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+};
+document.getElementById('exportMat').onclick=()=>{
+  const blob=new Blob([document.getElementById('matPre').textContent],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='graph_matrix_N'+N+'.txt'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+};
+document.getElementById('file').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ setSyncTag(false); document.getElementById('exList').style.display='none'; load(r.result,'手动载入文本'); };
+  r.readAsText(f,'utf-8');
+};
+document.getElementById('modeSel').onchange=applyMode;
+document.getElementById('btnRecompute').onclick=()=>recomputeLive();
+document.getElementById('gateSel').onchange=e=>{
+  const g=GATES[+e.target.value];
+  srcLat=g.lat; srcLon=g.lon; srcName=g.name;
+  recomputeLive();
+};
+
+// 图上点选起点（模式 C）
+svg.addEventListener('click',evt=>{
+  if(mode!=='C'||!engine) return;
+  const pt=svg.createSVGPoint(); pt.x=evt.clientX; pt.y=evt.clientY;
+  const q=pt.matrixTransform(svg.getScreenCTM().inverse());
+  // 屏幕 -> 最近节点（示意图上取最近建筑/水源点即可）
+  let best=null;
+  for(const n of nodes){
+    const p=proj(n.lat,n.lon), d=Math.hypot(p[0]-q.x,-p[1]-q.y);
+    if(!best||d<best.d) best={d,n};
+  }
+  if(!best) return;
+  srcLat=best.n.lat; srcLon=best.n.lon; srcName='图上点选';
+  recomputeLive();
+});
+
+// ---------------- init ----------------
+(function initGates(){
+  document.getElementById('gateSel').innerHTML=GATES.map((g,i)=>
+    `<option value="${i}">${g.name}</option>`).join('');
+})();
+document.getElementById('sub').textContent='N=— · 权重 m · 与规划台同口径';
+setSyncTag(false,'');
+
+// 优先用 hash 带入的规划台选择
+function readHash(){
+  const q=new URLSearchParams(location.hash.slice(1));
+  const m=q.get('mode');
+  if(m==='A'||m==='B'||m==='C'){
+    mode=m;
+    document.getElementById('modeSel').value=m;
+    const ex=q.get('ex');
+    if(ex) ex.split(',').filter(Boolean).forEach(id=>exSet.add(id));
+    const s=q.get('src');
+    if(s){ const [la,lo]=s.split(',').map(Number); srcLat=la; srcLon=lo; srcName='规划台手选起点'; }
+    const e2=q.get('ex2');
+    if(e2){ e2.split(';').filter(Boolean).forEach(t=>{
+      if(t.startsWith('B:')){
+        liveTargets.push({bid:t.slice(2), lat:null, lon:null, label:t.slice(2)});
+      }else{
+        const [la,lo]=t.split(',').map(Number);
+        liveTargets.push({lat:la, lon:lo, label:'接入点 '+(liveTargets.length+1)});
+      }
+    }); }
+    return true;
+  }
+  return false;
+}
+
+function boot(b){
+  bundle=b; engine=PipeEngine.createEngine(b);
+  buildTargetGrid();
+  const had=readHash();                 // 没带 hash 时就按模式 A 的当前方案实时算
+  document.getElementById('bBox').style.display=(mode==='B')?'block':'none';
+  document.getElementById('cBox').style.display=(mode==='C')?'block':'none';
+  recomputeLive();
+  if(!had) document.getElementById('curPlan').textContent=
+    '模式 A 全校（实时计算，与规划台同源）';
+}
+
+if(window.PipeEngine && window.__BUNDLE__){
+  boot(window.__BUNDLE__);
+}else if(window.PipeEngine && (location.protocol==='http:'||location.protocol==='https:')){
+  fetch('../../04_数据/derived/pipeline_bundle_conn.json')
+    .then(r=>r.json())
+    .then(boot)
+    .catch(()=>{
+      if(rawText) load(rawText,'静态 graph_matrix.txt');
+      else fail('读不到主数据，也用不了 graph_matrix.js；请用“选择文件”载入 graph_matrix.txt');
+    });
+}else if(rawText){
+  load(rawText,'静态 graph_matrix.txt');
+}else{
+  fail('未找到 graph_matrix.js；请用“选择文件”载入 graph_matrix.txt');
+}
+
+// hash 单页测试
+try{
+  const H=new URLSearchParams(location.hash.slice(1));
+  if(H.get('algo')==='prim'){ algo='prim'; document.getElementById('algo').value='prim'; compute(); k=0; update(); }
+  if(H.get('step')){ k=Math.max(0,Math.min(steps.length,parseInt(H.get('step'),10))); update(); }
+  if(H.get('mat')) document.getElementById('matrixBox').style.display='block';
+  if(H.get('proc')) document.getElementById('procBox').style.display='block';
+}catch(e){}
+
+window.__matrix={
+  get state(){ return {N, mode, excluded:[...exSet], kruskal:document.getElementById('kru').textContent,
+    prim:document.getElementById('pri').textContent, step:k+'/'+steps.length}; },
+  setMode(m){ document.getElementById('modeSel').value=m; applyMode(); },
+  exclude(id){ exSet.add(id); const c=document.querySelector('.tchip[data-id="'+id+'"]'); if(c) c.classList.add('ex'); recomputeLive(); },
+  include(id){ exSet.delete(id); const c=document.querySelector('.tchip[data-id="'+id+'"]'); if(c) c.classList.remove('ex'); recomputeLive(); },
+  recompute: recomputeLive
+};
+})();
+</script>
+</body>
+</html>

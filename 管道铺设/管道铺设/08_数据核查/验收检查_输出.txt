@@ -1,0 +1,69 @@
+﻿== 1. 规模 ==
+  PASS  buildings == 61  61
+  PASS  targets == 45
+  PASS  parts == 78
+  PASS  pipes == 220  220
+  PASS  tree_edges == 45  45
+  PASS  roads == 153  153
+  PASS  areas == 38  38
+  PASS  service_connections == 61  61
+== 2. 勾稽 ==
+  PASS  Σpipes.length == stats.pipe_length_m
+  PASS  Σtree_edges.w == stats.mst_length_m
+  PASS  造价复算 == stats.cost_est_yuan  4682809
+  PASS  Σbuildings.demand == stats.total_demand_lpd
+  PASS  Σfloor_area == stats.total_floor_m2
+== 3. 流量与管径 ==
+  PASS  最大管段流量 <= 总需水量  6887403.3
+  PASS  最大管段流量 == 总需水量（主干）
+  PASS  q_ls 与 flow 一致（相对误差 <1e-3）
+  PASS  所有 DN 在标准档位里
+== 4. 坐标与几何 ==
+  PASS  所有建筑顶点在东经 119.49~119.55
+  PASS  所有建筑顶点在北纬 39.89~39.93
+  PASS  footprint 均为 >=3 点闭合多边形
+  PASS  parts 每个 >=3 点
+  PASS  所有 demand >= 0
+  PASS  61 栋都有面积加权质心
+== 5. 环道 ==
+  PASS  环道首尾闭合
+  PASS  环道顶点 73（72+闭合点）  73
+  PASS  环道长度 750~790 m  772.7
+  PASS  plaza_west_approach 外端在 OSM 主网上（<2 m）  0.01 m
+  PASS  plaza_north_link 外端在 OSM 主网上（<2 m）  0.00 m
+  PASS  plaza_east_spur 外端在 OSM 主网上（<2 m）  0.02 m
+  PASS  plaza_south_spur 外端在 OSM 主网上（<2 m）  0.04 m
+== 6. 接户 ==
+  PASS  lateral_m == 距离(road_tap, edge_point)  []
+  PASS  接户支管 2~110 m
+  PASS  接户 id 都在 buildings 里
+== 7. 距离表 ==
+  PASS  distances.csv 1,830 对  1830
+  PASS  distances.csv 61 个键且都在 bundle
+== 8. 图 / 衍生文件 ==
+  PASS  存在 pipes_v2.geojson
+  PASS  存在 targets_v2.csv
+  PASS  存在 build_report_v2.txt
+  PASS  存在 amap_around_燕山大学.json
+  PASS  存在 amap_crosscheck_燕山大学.txt
+  PASS  存在 id_validation_registry.json
+== 9. 交互式规划台 ==
+  PASS  planner.html 存在
+  PASS  planner.html 含三模式与 Dijkstra
+  PASS  planner.html 内联了主要数据
+  PASS  planner.html 体积 >100 KB  184592
+== 10. 算法/数据校验产物 ==
+  PASS  prim_check.txt 存在且 PASS
+  PASS  注册表 67 个 way id 全部 ok  67/67
+  PASS  run_build.py / check_prim.py / validate_registry_ids.py 存在
+== 11. 作业功能：矩阵 + Prim/Kruskal ==
+  PASS  graph_matrix.txt 存在
+  PASS  矩阵声明 N=46
+  PASS  矩阵 46 行  46
+  PASS  每行 46 个数
+  PASS  graph_mst_process.txt 存在
+  PASS  过程文本含 Kruskal / Prim 且两者差 0
+  PASS  matrix_mst.html 存在且含 Prim/Kruskal
+  PASS  graph_matrix.js 存在
+
+全部通过

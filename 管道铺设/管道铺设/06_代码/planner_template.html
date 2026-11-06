@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>燕山大学西校区 · 给水管道规划台</title>
+<style>
+  :root{
+    --bg:#0a0e14; --panel:#111823; --panel2:#0d141d; --line:#223041; --txt:#dbe6f3;
+    --dim:#8fa3b8; --acc:#ffb300; --ok:#26a69a; --bad:#ef5350; --route:#ff6d00;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--txt);
+    font:14px/1.5 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;overflow:hidden}
+  #app{display:grid;grid-template-columns:318px 1fr;grid-template-rows:52px 1fr;height:100%}
+  header{grid-column:1/3;display:flex;align-items:center;gap:14px;padding:0 16px;
+    background:linear-gradient(90deg,#0f1621,#0b1119);border-bottom:1px solid var(--line)}
+  header h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.5px}
+  header .sub{color:var(--dim);font-size:12px}
+  #modeBadge{margin-left:auto;padding:4px 10px;border-radius:20px;font-size:12px;
+    background:#1b2836;border:1px solid var(--line);color:var(--acc);white-space:nowrap}
+  .mlink{margin-left:10px;padding:4px 10px;border-radius:20px;font-size:12px;color:#9fd8ff;
+    border:1px solid #2b4a63;text-decoration:none;background:#10202c;white-space:nowrap}
+  .mlink:hover{border-color:#4d90b8;color:#d6f2ff}
+  #panel{background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:12px}
+  #panel h3{font-size:12px;color:var(--dim);margin:14px 0 6px;font-weight:600;letter-spacing:1px}
+  .row{display:flex;justify-content:space-between;gap:8px;padding:2px 0;font-size:13px}
+  .row .k{color:var(--dim)} .row .v{font-variant-numeric:tabular-nums;text-align:right}
+  .big{font-size:15px;color:#fff;font-weight:600}
+  .param{display:grid;grid-template-columns:74px 1fr 46px;gap:6px;align-items:center;margin:4px 0}
+  .param label{font-size:12px;color:var(--dim)}
+  .param input[type=range]{width:100%;accent-color:var(--acc)}
+  .param .pv{font-size:12px;text-align:right;color:#fff;font-variant-numeric:tabular-nums}
+  .btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  button{background:#172230;color:var(--txt);border:1px solid var(--line);border-radius:6px;
+    padding:6px 9px;font-size:12px;cursor:pointer}
+  button:hover{border-color:#3a5372;background:#1d2b3c}
+  button.on{border-color:var(--acc);color:var(--acc)}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  select{background:#172230;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:5px;font-size:12px;width:100%}
+  #stage{position:relative;overflow:hidden;background:#06090d}
+  #svg{width:100%;height:100%;display:block;cursor:crosshair}
+  #hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:rgba(8,12,18,.86);
+    border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--dim);pointer-events:none}
+  #detail{position:absolute;right:14px;bottom:14px;width:290px;background:rgba(13,20,29,.96);
+    border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:none;font-size:12px;pointer-events:none}
+  #detail h4{margin:0 0 6px;font-size:13px;color:var(--acc)}
+  #detail .r{display:flex;justify-content:space-between;gap:8px;padding:1px 0}
+  #detail .r span:first-child{color:var(--dim)}
+  #legend{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 10px;font-size:11px;color:var(--dim)}
+  #legend i{display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:5px;vertical-align:middle}
+  #cmp .row .v{font-variant-numeric:tabular-nums}
+  .tag{display:inline-block;padding:0 6px;border-radius:10px;background:#1b2a3a;color:var(--dim);font-size:11px}
+  .chosen{color:var(--acc)}
+  #srcTable{font-size:11px;width:100%;border-collapse:collapse;margin-top:4px}
+  #srcTable td{padding:2px 3px;border-bottom:1px solid #1b2633;color:var(--dim);font-variant-numeric:tabular-nums}
+  #srcTable tr.chosen td{color:var(--acc)}
+  #zoomTip{position:absolute;left:12px;bottom:12px;font-size:11px;color:#5d7187}
+  .lbl{font-size:15px;fill:#e8f1fa;paint-order:stroke;stroke:#06090d;stroke-width:3px;stroke-linejoin:round}
+  .pipeflow{animation:flow 1.1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-17}}
+@keyframes grow{from{opacity:0;transform:translateY(2px)}to{opacity:1;transform:none}}
+
+  /* ---- 模式切换 ---- */
+  #modeBar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:2px}
+  #modeBar button{padding:7px 4px;font-size:12px;line-height:1.25}
+  #modeBar button .mn{display:block;font-weight:700;font-size:13px}
+  #modeBar button .md{display:block;font-size:10px;color:#7d93a8;margin-top:1px}
+  #modeBar button.on{background:#2a1f08;border-color:var(--acc)}
+  #modeBar button.on .md{color:#c79b3e}
+  .modeDesc{font-size:11px;color:#7d93a8;line-height:1.6;margin-top:6px;
+    background:#0d141d;border:1px solid #1b2633;border-radius:6px;padding:6px 8px}
+  .modeDesc b{color:#c9d8e6;font-weight:600}
+
+  /* ---- 建筑编号选择（模式 B） ---- */
+  #bldPick{max-height:290px;overflow:auto;border:1px solid var(--line);border-radius:6px;
+    padding:6px;background:#0d141d;margin-top:4px}
+  #bldPick .grp{font-size:10px;color:#5d7187;margin:6px 0 3px;letter-spacing:.5px}
+  #bldPick .grp:first-child{margin-top:0}
+  .chips{display:flex;flex-wrap:wrap;gap:4px}
+  .chip{font-size:11px;padding:2px 7px;border-radius:12px;border:1px solid #2b3d52;
+    background:#131e2a;color:#9fb3c8;cursor:pointer;user-select:none;font-variant-numeric:tabular-nums;
+    font-family:Consolas,monospace}
+  .chip:hover{border-color:#4a6a8c;color:#dbe6f3}
+  .chip.ex{background:#3a1414;border-color:#7f2b2b;color:#ff8a80;text-decoration:line-through}
+  .chip.ex:hover{border-color:#b04040;color:#ffbaba}
+  .chip.hot{outline:1px solid var(--acc)}
+  #pickSummary{font-size:11px;color:#7d93a8;margin-top:6px;line-height:1.6}
+  #pickSummary b{color:var(--acc)}
+  .warn{color:#ffb300}
+  #emptyState{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    background:rgba(13,20,29,.96);border:1px solid var(--line);border-radius:10px;
+    padding:16px 20px;font-size:13px;color:var(--dim);text-align:center;display:none;max-width:420px;line-height:1.8}
+  #emptyState b{color:#ffb300}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>燕山大学西校区 · 给水管道规划台</h1>
+    <span class="sub" id="gen"></span>
+    <span id="modeBadge">模式 A · 全校（默认起点）</span>
+    <a class="mlink" id="linkMatrix" href="matrix_mst.html" target="_blank">无向图 / 矩阵演示</a>
+  </header>
+
+  <aside id="panel">
+    <h3>规划模式</h3>
+    <div id="modeBar">
+      <button data-mode="A" class="on"><span class="mn">模式 A</span><span class="md">全校默认起点</span></button>
+      <button data-mode="B"><span class="mn">模式 B</span><span class="md">选点排除</span></button>
+      <button data-mode="C"><span class="mn">模式 C</span><span class="md">自定起点+多终点</span></button>
+    </div>
+    <div class="modeDesc" id="modeDesc"></div>
+
+    <!-- 模式 B：编号选择 -->
+    <div id="blockB" style="display:none">
+      <h3>排除建筑（点编号切换）</h3>
+      <div id="bldPick"></div>
+      <div class="btns">
+        <button id="btn-b-none">全部纳入</button>
+        <button id="btn-b-invert">反选</button>
+        <button id="btn-b-type" data-type="dorm">公寓全排除</button>
+        <button id="btn-b-type" data-type="teaching">教学全排除</button>
+      </div>
+      <div id="pickSummary"></div>
+    </div>
+
+    <!-- 模式 C：起点 + 终点 -->
+    <div id="blockC" style="display:none">
+      <h3>起点与终点（图上点选）</h3>
+      <div class="row"><span class="k">状态</span><span class="v" id="cStatus"></span></div>
+      <div class="btns">
+        <button id="btn-c-src" class="on">正在点：起点 1 / 1</button>
+        <button id="btn-c-undo">撤销上一个</button>
+        <button id="btn-c-clr">清空 C 选点</button>
+      </div>
+      <div style="font-size:11px;color:#7d93a8;margin-top:6px;line-height:1.6">
+        点在楼上 = 该楼作终点（带用水量）；点空地 = 路网任意接入点。<br>
+        <b style="color:#ffb300">模式 C 只铺你点的点，不铺全校。</b>
+      </div>
+      <div id="cPickWrap"></div>
+      <div id="cQuickWrap" style="margin-top:6px">
+        <div style="font-size:10px;color:#5d7187;margin-bottom:3px">快速加终点（点编号）：</div>
+        <div class="chips" id="cQuickChips"></div>
+      </div>
+    </div>
+
+    <h3>方案统计 <span class="tag" id="paramTag">基准</span></h3>
+    <div class="row"><span class="k">建筑群 / 供水目标</span><span class="v" id="s_bld"></span></div>
+    <div class="row"><span class="k">管段 / 路网节点 / 路网边</span><span class="v" id="s_net"></span></div>
+    <div class="row"><span class="k">MST 加权总长</span><span class="v big" id="s_mst"></span></div>
+    <div class="row"><span class="k">管道实长</span><span class="v big" id="s_pipe"></span></div>
+    <div class="row"><span class="k">总需水量</span><span class="v" id="s_dem"></span></div>
+    <div class="row"><span class="k">设计流量</span><span class="v" id="s_q"></span></div>
+    <div class="row"><span class="k">主干管径</span><span class="v" id="s_dn"></span></div>
+    <div class="row"><span class="k">估算造价</span><span class="v big" id="s_cost"></span></div>
+    <div class="row"><span class="k">接户点</span><span class="v" id="s_svc"></span></div>
+    <div class="row"><span class="k">起点（水源）</span><span class="v" id="s_src"></span></div>
+
+    <h3>参数（改动即重算）</h3>
+    <div class="param"><label>经济流速</label><input id="p_v" type="range" min="0.8" max="1.6" step="0.05" value="1.0"><span class="pv" id="pv_v">1.00 m/s</span></div>
+    <div class="param"><label>时变化 Kh</label><input id="p_kh" type="range" min="1.5" max="3.0" step="0.1" value="2.5"><span class="pv" id="pv_kh">2.5</span></div>
+    <div class="param"><label>用水系数</label><input id="p_w" type="range" min="0.7" max="1.3" step="0.05" value="1.0"><span class="pv" id="pv_w">1.00</span></div>
+    <div class="param"><label>管价系数</label><input id="p_c" type="range" min="0.7" max="1.5" step="0.05" value="1.0"><span class="pv" id="pv_c">1.00</span></div>
+    <div class="param"><label>层高 m</label><input id="p_h" type="range" min="2.8" max="4.0" step="0.1" value="3.2"><span class="pv" id="pv_h">3.2</span></div>
+    <div class="btns">
+      <button id="btn-reset">恢复基准</button>
+      <button id="btn-fit">重置视图</button>
+      <button id="btn-grow">重播铺设</button>
+      <button id="btn-flow" class="on">水流</button>
+      <button id="btn-export">导出矩阵</button>
+    </div>
+
+    <h3>方案对比</h3>
+    <div id="cmp"></div>
+
+    <h3>起点比较</h3>
+    <div id="srcWrap"></div>
+
+    <h3>图例</h3>
+    <div id="legend"></div>
+
+    <h3>底图 / 视图</h3>
+    <select id="sel_base">
+      <option value="none">纯矢量</option>
+      <option value="sat">高德卫星</option>
+      <option value="road">高德路网</option>
+    </select>
+    <div class="btns" style="margin-top:6px">
+      <button id="btn-view" class="on">2.5D</button>
+      <button id="btn-plan">平面</button>
+    </div>
+    <p style="color:#5d7187;font-size:11px;margin-top:14px;line-height:1.6">
+      滚轮缩放，按住拖动平移。高德底图为 GCJ-02，已按 WGS-84 配准。<br>
+      所有模式共用同一套算法口径：沿路网加权最短路 + 完全图 Kruskal，与主数据一致。
+    </p>
+  </aside>
+
+  <main id="stage">
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div id="emptyState"></div>
+    <div id="hint"></div>
+    <div id="detail"></div>
+    <div id="zoomTip">滚轮缩放 · 拖动平移</div>
+  </main>
+</div>
+
+<script>__ENGINE_JS__</script>
+<script>
+const B = __BUNDLE_JSON__;
+(function(){
+'use strict';
+const EN = PipeEngine.createEngine(B);
+const M = EN.meta;
+const K_LAT = M.m_per_deg_lat, K_LON = M.m_per_deg_lon, LAT0 = M.origin[0], LON0 = M.origin[1];
+const DN_LIST = EN.DN_LIST, DN_COST = EN.DN_COST, DN_COL = EN.DN_COL, CAT_COL = EN.CAT_COL;
+const CAT_NAME = EN.CAT_NAME, TARGET_CATS = EN.TARGET_CATS, HW_W = EN.HW_W;
+const svg = document.getElementById('svg');
+const SVGNS = 'http://www.w3.org/2000/svg';
+
+const GATES = [
+  {name:'7号门（南主门，默认）', lat:39.902950, lon:119.517905},
+  {name:'6号门', lat:39.916682, lon:119.512308},
+  {name:'5号门', lat:39.909810, lon:119.530025}
+];
+const TH = -14*Math.PI/180, TILT = 0.80;
+
+let view = 'iso';              // iso | plan
+let base = 'none';             // none | sat | road
+let mode = 'A';                // A 全校自动起点 | B 排除选点 | C 自定起点+多终点
+let excluded = new Set();      // 模式 B：被排除的建筑编号
+let cSource = null;            // 模式 C：起点 {x,y,lon,lat}
+let cTargets = [];             // 模式 C：终点 [{x,y,lon,lat,label}]
+let cStep = 'source';          // 模式 C：当前点击落到哪里 source | target
+let prevMode = 'A';            // 用于判断“是否刚从别的模式切进 C”
+let plan = null;               // 当前方案（引擎返回）
+let param = {v:1.0, kh:2.5, water:1.0, price:1.0, level:3.2};
+let flowOn = true;
+let animate = false;
+let vb = null;
+let needFit = true;
+let busy = false;
+
+// ---------- 投影 ----------
+function proj(lon,lat){ return EN.proj(lon,lat); }
+function mat(){
+  if(view==='iso'){ const c=Math.cos(TH), s=Math.sin(TH);
+    return {a:c, b:-TILT*s, c:-s, d:-TILT*c};
+  }
+  return {a:1,b:0,c:0,d:-1};
+}
+function ap(m,x,y,z){ return [m.a*x+m.c*y, m.b*x+m.d*y - (view==='iso'?(z||0):0)]; }
+
+// ---------- 路网图（仅用于屏幕点选吸附，求解走引擎） ----------
+const EN_ref = EN;
+const geo = {nodes:{}, edges:[], adj:{}};
+(function buildGeo(){
+  const g = geo;
+  function addNode(lon,lat){
+    const k = lon.toFixed(7)+','+lat.toFixed(7);
+    if(!g.nodes[k]){ const [x,y]=proj(lon,lat); g.nodes[k]={key:k,x,y,lon,lat}; g.adj[k]=[]; }
+    return k;
+  }
+  function addEdge(a,b,hw){
+    const na=g.nodes[a], nb=g.nodes[b], ln=Math.hypot(nb.x-na.x, nb.y-na.y);
+    if(ln<0.05) return;
+    const e={a,b,ax:na.x,ay:na.y,bx:nb.x,by:nb.y,len:ln,w:ln*(HW_W[hw]||1.15),hw,dead:false};
+    const id=g.edges.length; g.edges.push(e); g.adj[a].push([b,id]); g.adj[b].push([a,id]);
+  }
+  for(const r of B.roads){
+    let prev=null;
+    for(const p of r.pts){ const k=addNode(p[0],p[1]);
+      if(prev!==null && prev!==k) addEdge(prev,k,r.hw); prev=k; }
+  }
+  g.addNode = addNode;
+})();
+
+function nearestEdgeSnap(lx,ly){
+  let best=null;
+  for(let i=0;i<geo.edges.length;i++){
+    const e=geo.edges[i]; if(e.dead) continue;
+    const vx=e.bx-e.ax, vy=e.by-e.ay, L2=vx*vx+vy*vy; if(L2<1e-9) continue;
+    let t=((lx-e.ax)*vx+(ly-e.ay)*vy)/L2; t=t<0?0:(t>1?1:t);
+    const qx=e.ax+t*vx, qy=e.ay+t*vy, d=Math.hypot(lx-qx,ly-qy);
+    if(!best||d<best.d) best={d,qx,qy,e};
+  }
+  return best;
+}
+function snapScreen(x,y){
+  const m=mat(), det=m.a*m.d-m.b*m.c;
+  const lx=( m.d*x-m.c*y)/det, ly=(-m.b*x+m.a*y)/det;
+  const sn=nearestEdgeSnap(lx,ly);
+  if(!sn) return null;
+  return {x:sn.qx, y:sn.qy, lon:LON0+sn.qx/K_LON, lat:LAT0+sn.qy/K_LAT, d:sn.d};
+}
+
+// ---------- 求解 ----------
+// 模式 C 的终点可以是「路网上任意一点」，也可以是「某栋楼的编号」。
+// 后者会带上该楼的用水量，方案里就有它的接户与流量。
+function cTargetPayload(){
+  return cTargets.map((t,i)=>{
+    const b = t.bid ? B.buildings.find(z=>z.id===t.bid) : null;
+    if(b){
+      return {id:b.id, lat:b.lat, lon:b.lon, label:b.short||b.name,
+              name:b.name, cat:b.cat, demand:b.demand||0, isBuilding:true};
+    }
+    return {id:'接入点'+(i+1), lat:t.lat, lon:t.lon,
+            label:'接入点 '+(i+1), name:'接入点 '+(i+1), demand:0, isBuilding:false};
+  });
+}
+
+function buildPlan(){
+  if(mode==='A'){
+    // 模式 A：连接全校，起点沿用主数据的默认水源（南主门 / 7 号门）
+    return EN.plan({source:null, gates:GATES, excluded:[], auto:false, sourceName:'默认起点'});
+  }
+  if(mode==='B'){
+    // 模式 B：排除若干栋后，在候选门里重选 MST 最短的起点
+    return EN.plan({source:null, gates:GATES, excluded:[...excluded], auto:true});
+  }
+  // 模式 C：只连用户点出来的终点，不铺全校
+  if(!cSource) return null;
+  if(cTargets.length===0) return null;   // 还没点终点 → 不画任何管网
+  return EN.plan({
+    source:{lat:cSource.lat, lon:cSource.lon},
+    sourceName:'手选起点',
+    scope:'picked',                       // ← 关键：不是全校
+    pickedBuildings: [],
+    extra:cTargetPayload()
+  });
+}
+
+function replan(silent){
+  if(busy) return; busy = true;
+  try{
+    plan = buildPlan();
+  }catch(e){
+    plan = {ok:false, error:String(e&&e.message||e)};
+  }
+  busy = false;
+  updatePanel(); render(); syncLink();
+}
+
+function syncLink(){
+  const q = new URLSearchParams();
+  q.set('mode', mode);
+  if(plan && plan.ok){
+    q.set('src', plan.source.lat.toFixed(6)+','+plan.source.lon.toFixed(6));
+    if(mode==='B' && excluded.size) q.set('ex', [...excluded].join(','));
+    if(mode==='C' && cTargets.length)
+      q.set('ex2', cTargets.map(t=>t.bid ? ('B:'+t.bid) : (t.lat.toFixed(6)+','+t.lon.toFixed(6))).join(';'));
+  }
+  document.getElementById('linkMatrix').href = 'matrix_mst.html#' + q.toString();
+}
+
+// ---------- 绘制 ----------
+function el(tag,attrs){ const n=document.createElementNS(SVGNS,tag);
+  for(const k in attrs) n.setAttribute(k,attrs[k]); return n; }
+function clear(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+
+function campusBounds(){
+  let xs=[],ys=[];
+  for(const b of B.buildings) for(const p of b.footprint){ const [x,y]=proj(p[0],p[1]); xs.push(x); ys.push(y); }
+  const pad=260;
+  return {x0:Math.min(...xs)-pad,x1:Math.max(...xs)+pad,y0:Math.min(...ys)-pad,y1:Math.max(...ys)+pad};
+}
+function fit(){
+  const m=mat(), bb=campusBounds(), pad=40;
+  let xs=[],ys=[];
+  for(const [x,y] of [[bb.x0,bb.y0],[bb.x1,bb.y0],[bb.x0,bb.y1],[bb.x1,bb.y1]]){
+    for(const z of (view==='iso'?[0,45]:[0])){ const q=ap(m,x,y,z); xs.push(q[0]); ys.push(q[1]); }
+  }
+  const x0=Math.min(...xs)-pad, x1=Math.max(...xs)+pad, y0=Math.min(...ys)-pad, y1=Math.max(...ys)+pad;
+  vb={x:x0,y:y0,w:x1-x0,h:y1-y0};
+  svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+}
+
+// GCJ helpers
+const PI=Math.PI, A=6378245.0, EE=0.00669342162296594323;
+function tlat(x,y){ let r=-100+2*x+3*y+0.2*y*y+0.1*x*y+0.2*Math.sqrt(Math.abs(x));
+  r+=(20*Math.sin(6*x*PI)+20*Math.sin(2*x*PI))*2/3;
+  r+=(20*Math.sin(y*PI)+40*Math.sin(y/3*PI))*2/3;
+  r+=(160*Math.sin(y/12*PI)+320*Math.sin(y*PI/30))*2/3; return r; }
+function tlon(x,y){ let r=300+x+2*y+0.1*x*x+0.1*x*y+0.1*Math.sqrt(Math.abs(x));
+  r+=(20*Math.sin(6*x*PI)+20*Math.sin(2*x*PI))*2/3;
+  r+=(20*Math.sin(x*PI)+40*Math.sin(x/3*PI))*2/3;
+  r+=(150*Math.sin(x/12*PI)+300*Math.sin(x/30*PI))*2/3; return r; }
+function wgs2gcj(lon,lat){ let dlat=tlat(lon-105,lat-35), dlon=tlon(lon-105,lat-35);
+  const rad=lat*PI/180; let m=1-EE*Math.sin(rad)*Math.sin(rad), sq=Math.sqrt(m);
+  dlat=(dlat*180)/((A*(1-EE))/(m*sq)*PI); dlon=(dlon*180)/(A/sq*Math.cos(rad)*PI);
+  return [lon+dlon, lat+dlat]; }
+function gcj2wgs(lon,lat){ let x=lon,y=lat;
+  for(let i=0;i<8;i++){ const g=wgs2gcj(x,y); const dx=lon-g[0], dy=lat-g[1]; x+=dx; y+=dy;
+    if(Math.abs(dx)<1e-10&&Math.abs(dy)<1e-10) break; }
+  return [x,y]; }
+const TILE_Z=17;
+function worldPx(lon,lat,z){ const n=Math.pow(2,z)*256, s=Math.sin(lat*PI/180);
+  return [(lon+180)/360*n, (0.5-Math.log((1+s)/(1-s))/(4*PI))*n]; }
+function pxLL(px,py,z){ const n=Math.pow(2,z)*256;
+  return [px/n*360-180, Math.atan(Math.sinh(PI*(1-2*py/n)))*180/PI]; }
+
+function drawBase(g){
+  if(base==='none') return;
+  const bb=campusBounds(), m=mat();
+  const corners=[[bb.x0,bb.y0],[bb.x1,bb.y0],[bb.x0,bb.y1],[bb.x1,bb.y1]].map(([x,y])=>{
+    return wgs2gcj(LON0+x/K_LON, LAT0+y/K_LAT);
+  });
+  const gx0=Math.min(...corners.map(c=>c[0])), gx1=Math.max(...corners.map(c=>c[0]));
+  const gy0=Math.min(...corners.map(c=>c[1])), gy1=Math.max(...corners.map(c=>c[1]));
+  const p0=worldPx(gx0,gy1,TILE_Z), p1=worldPx(gx1,gy0,TILE_Z);
+  const tx0=Math.floor(p0[0]/256)-1, tx1=Math.floor(p1[0]/256)+1;
+  const ty0=Math.floor(p0[1]/256)-1, ty1=Math.floor(p1[1]/256)+1;
+  const style=base==='sat'?6:8, host=base==='sat'?'webst':'webrd';
+  const grp=el('g',{opacity:0.92});
+  for(let tx=tx0;tx<=tx1;tx++) for(let ty=ty0;ty<=ty1;ty++){
+    const nw=pxLL(tx*256,ty*256,TILE_Z), ne=pxLL(tx*256+256,ty*256,TILE_Z), sw=pxLL(tx*256,ty*256+256,TILE_Z);
+    const lNW=proj(...gcj2wgs(nw[0],nw[1])), lNE=proj(...gcj2wgs(ne[0],ne[1])), lSW=proj(...gcj2wgs(sw[0],sw[1]));
+    const A1=(lNE[0]-lNW[0])/256, C1=(lSW[0]-lNW[0])/256;
+    const B1=(lNE[1]-lNW[1])/256, D1=(lSW[1]-lNW[1])/256;
+    const M0=m.a*A1+m.c*B1, M1=m.b*A1+m.d*B1, M2=m.a*C1+m.c*D1, M3=m.b*C1+m.d*D1;
+    const E=m.a*lNW[0]+m.c*lNW[1], F=m.b*lNW[0]+m.d*lNW[1];
+    const s=(tx+ty)%4+1;
+    grp.appendChild(el('image',{x:0,y:0,width:256,height:256,preserveAspectRatio:'none',
+      transform:`matrix(${M0},${M1},${M2},${M3},${E},${F})`,
+      href:`https://${host}0${s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=${style}&x=${tx}&y=${ty}&z=${TILE_Z}`}));
+  }
+  g.appendChild(grp);
+  const bb2=campusBounds(), m2=mat();
+  const pts=[[bb2.x0,bb2.y0],[bb2.x1,bb2.y0],[bb2.x1,bb2.y1],[bb2.x0,bb2.y1]].map(([x,y])=>ap(m2,x,y,0).join(','));
+  g.appendChild(el('polygon',{points:pts.join(' '),fill:'#06090d',opacity:0.42}));
+}
+
+function drawNetwork(g){
+  const m=mat();
+  const rg=el('g',{});
+  for(const r of B.roads){
+    if(r.hw==='steps'||r.hw==='construction') continue;
+    const pts=r.pts.map(p=>{ const [x,y]=proj(p[0],p[1]); return ap(m,x,y,0); });
+    rg.appendChild(el('polyline',{points:pts.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' '),
+      fill:'none',stroke:'#2b3d52','stroke-width':r.hw==='trunk'||r.hw==='secondary'?2.2:1.4,
+      'stroke-linejoin':'round','stroke-linecap':'round'}));
+  }
+  g.appendChild(rg);
+
+  // 按当前方案的管段绘制（不是固定全校那套）
+  const pipes = (plan && plan.ok) ? plan.pipes : [];
+  const pg=el('g',{id:'pipes'});
+  const fg=el('g',{id:'flow',opacity:0.92});
+  pipes.forEach((p,i)=>{
+    if(p.length<0.5) return;
+    const qq = p.flow/86400*param.kh*param.water;
+    const dn = EN.pickDN(qq, param.v);
+    const a=proj(p.a[0],p.a[1]), b=proj(p.b[0],p.b[1]);
+    const qa=ap(m,a[0],a[1],0), qb=ap(m,b[0],b[1],0);
+    const w=1.8+dn/40;
+    const grow=animate?`animation:grow .45s ease-out ${Math.max(0,(p.order-1))*0.06}s both`:'';
+    pg.appendChild(el('line',{x1:qa[0],y1:qa[1],x2:qb[0],y2:qb[1],
+      stroke:DN_COL[dn]||'#ef5350','stroke-width':w.toFixed(1),
+      'stroke-linecap':'round','data-pipe':i,style:grow}));
+    if(flowOn){
+      const fw=Math.max(1.6, w*0.34);
+      const dash='4 16';
+      const delay=(grow?grow+';':'')+`animation-delay:${-((i%9)*0.13).toFixed(2)}s`;
+      fg.appendChild(el('line',{x1:qa[0],y1:qa[1],x2:qb[0],y2:qb[1],
+        stroke:'#00151f','stroke-width':(fw+2.0).toFixed(1),'stroke-linecap':'round',
+        'stroke-dasharray':dash,class:'pipeflow',style:delay}));
+      fg.appendChild(el('line',{x1:qa[0],y1:qa[1],x2:qb[0],y2:qb[1],
+        stroke:'#ffffff','stroke-width':fw.toFixed(1),'stroke-linecap':'round',
+        'stroke-dasharray':dash,class:'pipeflow','data-pipe':i,style:delay}));
+    }
+  });
+  g.appendChild(pg);
+  g.appendChild(fg);
+}
+
+function drawBuildings(g){
+  const m=mat();
+  const list=[];
+  for(const b of B.buildings){
+    let cx=0,cy=0,n=0;
+    for(const p of b.parts) for(const q of p){ const [x,y]=proj(q[0],q[1]); cx+=x; cy+=y; n++; }
+    cx/=n; cy/=n;
+    list.push({b,cx,cy,d:ap(m,cx,cy,0)[1]});
+  }
+  list.sort((u,v)=>u.d-v.d);
+
+  // 当前方案里的目标集合（用于区分“已纳入 / 已排除”）
+  const inPlan = new Set((plan&&plan.ok)?plan.items.map(it=>it.id):[]);
+  const excludedSet = (mode==='B') ? excluded : new Set();
+  const grp=el('g',{});
+  for(const {b} of list){
+    const levels=b.levels||3, h=(view==='iso'?levels*param.level:0);
+    let col=CAT_COL[b.cat]||'#78909c';
+    const isEx = excludedSet.has(b.id);
+    const isTgt = TARGET_CATS[b.cat];
+    if(isEx) col='#3b4655';
+    let op = (isTgt && !inPlan.has(b.id) && !isEx) ? 0.30 : 1;
+    // C 模式：还没出方案时正常显示，出了方案才把未选中的楼压暗
+    if(mode==='C' && isTgt && !inPlan.has(b.id) && plan && plan.ok) op = 0.12;
+    for(const part of b.parts){
+      const pts=part.map(p=>{ const [x,y]=proj(p[0],p[1]); return [x,y]; });
+      if(view==='iso'){
+        const edges=[];
+        for(let i=0;i<pts.length;i++){
+          const p1=pts[i], p2=pts[(i+1)%pts.length];
+          const y1=ap(m,p1[0],p1[1],0), y2=ap(m,p2[0],p2[1],0);
+          edges.push([(y1[1]+y2[1])/2,p1,p2]);
+        }
+        edges.sort((a,b)=>a[0]-b[0]);
+        for(const [,p1,p2] of edges){
+          const a1=ap(m,p1[0],p1[1],0), a2=ap(m,p2[0],p2[1],0);
+          const a3=ap(m,p2[0],p2[1],h), a4=ap(m,p1[0],p1[1],h);
+          const shade=0.45+0.45*Math.abs(Math.cos(Math.atan2(p2[1]-p1[1],p2[0]-p1[0])-TH));
+          grp.appendChild(el('polygon',{points:[a1,a2,a3,a4].map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' '),
+            fill:col,'fill-opacity':(shade*op).toFixed(2),stroke:'#0b0f14','stroke-width':0.5,'data-bld':b.id}));
+        }
+        const top=pts.map(p=>ap(m,p[0],p[1],h));
+        grp.appendChild(el('polygon',{points:top.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' '),
+          fill:col,'fill-opacity':op,stroke:'#eef2f7','stroke-width':0.7,'stroke-opacity':(0.45*op).toFixed(2),'data-bld':b.id}));
+      }else{
+        const flat=pts.map(p=>ap(m,p[0],p[1],0));
+        grp.appendChild(el('polygon',{points:flat.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' '),
+          fill:col,'fill-opacity':op,stroke:'#eef2f7','stroke-width':0.6,'stroke-opacity':(0.35*op).toFixed(2),'data-bld':b.id}));
+      }
+    }
+  }
+  g.appendChild(grp);
+
+  // 标签
+  const lg=el('g',{});
+  const placed=[];
+  for(const {b} of list){
+    if(mode==='B' && excluded.has(b.id)) continue;   // 排除的楼不标名，画面更干净
+    if(mode==='C' && TARGET_CATS[b.cat] && !inPlan.has(b.id) && plan && plan.ok) continue;  // C 只标选中的
+    const c=b.centroid||[b.lon,b.lat];
+    const [x,y]=proj(c[0],c[1]);
+    const q=ap(m,x,y,view==='iso'?(b.levels||3)*param.level+4:0);
+    const label=b.short||b.name;
+    const wpx=label.length*15+8;
+    let box=null;
+    for(const off of [0,-18,-34,18,34,-50]){
+      const cand={x:q[0]-wpx/2,y:q[1]-18+off,w:wpx,h:18};
+      if(placed.every(o=>!(cand.x<o.x+o.w&&cand.x+cand.w>o.x&&cand.y<o.y+o.h&&cand.y+cand.h>o.y))){ box=cand; break; }
+    }
+    if(!box) box={x:q[0]-wpx/2,y:q[1]-18,w:wpx,h:18};
+    placed.push(box);
+    const t=el('text',{x:box.x+4,y:box.y+14,class:'lbl'});
+    t.textContent=label;
+    lg.appendChild(t);
+  }
+  g.appendChild(lg);
+}
+
+function drawLaterals(g){
+  const m=mat();
+  const inPlan = new Set((plan&&plan.ok)?plan.items.map(it=>it.id):[]);
+  const sg=el('g',{opacity:0.9});
+  for(const c of B.service_connections){
+    if(!inPlan.has(c.id)) continue;   // 只画当前方案纳入的接户
+    const a=[c.road_tap[0],c.road_tap[1]], b=[c.edge_point[0],c.edge_point[1]];
+    const qa=ap(m,a[0],a[1],0), qb=ap(m,b[0],b[1],0);
+    sg.appendChild(el('line',{x1:qa[0],y1:qa[1],x2:qb[0],y2:qb[1],stroke:'#4dd0e1','stroke-width':1.2,'stroke-dasharray':'3 3'}));
+    sg.appendChild(el('circle',{cx:qa[0],cy:qa[1],r:2.4,fill:'#4dd0e1'}));
+  }
+  g.appendChild(sg);
+}
+
+function drawMarkers(g){
+  const m=mat();
+  // 水源（当前方案）
+  if(plan && plan.ok){
+    const s=ap(m, plan.source.lon!=null?proj(plan.source.lon,plan.source.lat)[0]:0,
+                    proj(plan.source.lon,plan.source.lat)[1], 0);
+    const p=proj(plan.source.lon, plan.source.lat);
+    const q=ap(m,p[0],p[1],0);
+    g.appendChild(el('circle',{cx:q[0],cy:q[1],r:6,fill:'#ffd54f',stroke:'#06090d','stroke-width':1.6}));
+    g.appendChild(el('circle',{cx:q[0],cy:q[1],r:11,fill:'none',stroke:'#ffd54f','stroke-width':1,opacity:.5}));
+    const t=el('text',{x:q[0]+9,y:q[1]+13,class:'lbl',style:'font-size:12px;fill:#ffd54f'});
+    t.textContent='起点 · '+plan.source.name;
+    g.appendChild(t);
+  }
+  // 模式 A/B 的门候选
+  if(mode!=='C' && plan && plan.ok && plan.srcRows && plan.srcRows.length){
+    for(const r of plan.srcRows){
+      if(r.name===plan.source.name) continue;
+      const p=proj(r.lon,r.lat), q=ap(m,p[0],p[1],0);
+      g.appendChild(el('circle',{cx:q[0],cy:q[1],r:4,fill:'#b0bec5',stroke:'#06090d','stroke-width':1.2}));
+      const t=el('text',{x:q[0]+6,y:q[1]-6,class:'lbl',style:'font-size:11px;fill:#b0bec5'});
+      t.textContent=r.name.split('（')[0];
+      g.appendChild(t);
+    }
+  }
+  // 模式 C 的选点（未出方案时也要画出来，否则点了没反应）
+  if(mode==='C'){
+    if(cSource && !(plan&&plan.ok)){
+      const p=proj(cSource.lon,cSource.lat), q=ap(m,p[0],p[1],0);
+      g.appendChild(el('circle',{cx:q[0],cy:q[1],r:6,fill:'#ffd54f',stroke:'#06090d','stroke-width':1.6}));
+      const t=el('text',{x:q[0]+9,y:q[1]+13,class:'lbl',style:'font-size:12px;fill:#ffd54f'});
+      t.textContent='起点'; g.appendChild(t);
+    }
+    cTargets.forEach((t,i)=>{
+      const p=proj(t.lon,t.lat), q=ap(m,p[0],p[1],0);
+      g.appendChild(el('circle',{cx:q[0],cy:q[1],r:5.5,fill:'#00e5ff',stroke:'#06090d','stroke-width':1.5}));
+      const tx=el('text',{x:q[0]+8,y:q[1]-7,class:'lbl',style:'font-size:11px;fill:#00e5ff'});
+      tx.textContent = t.bid ? (t.bid+' '+t.label) : ('接入点 '+(i+1));
+      g.appendChild(tx);
+    });
+  }
+}
+
+function render(){
+  clear(svg);
+  const g=el('g',{});
+  drawBase(g);
+  drawNetwork(g);
+  drawBuildings(g);
+  drawLaterals(g);
+  drawMarkers(g);
+  svg.appendChild(g);
+  fitIfNeeded();
+}
+function fitIfNeeded(){
+  if(needFit){ fit(); needFit=false; }
+  else svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+}
+
+// ---------- 面板 ----------
+function fmt(n,d){ if(n===null||n===undefined||!isFinite(n)) return '—';
+  return n.toLocaleString('zh-CN',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); }
+
+function updatePanel(){
+  const st = (plan && plan.ok) ? plan.stats : null;
+  const changed=(param.v!==1.0||param.kh!==2.5||param.water!==1.0||param.price!==1.0||param.level!==3.2);
+  document.getElementById('paramTag').textContent=changed?'已重算':'基准';
+  document.getElementById('paramTag').style.color=changed?'#ffb300':'#8fa3b8';
+
+  const empty=document.getElementById('emptyState');
+  if(!plan || !plan.ok){
+    empty.style.display='block';
+    let msg;
+    if(mode==='C'){
+      msg = !cSource
+        ? '<b>模式 C · 第 1 步：点起点</b><br>在图上点一个位置作铺设起点（会自动吸附到最近路网）。<br>点完再逐个点终点。'
+        : '<b>模式 C · 第 2 步：点终点</b><br>起点已定，现在点要接水的楼（点在楼上）或路网上的任意接入点。<br>'
+          + '<span style="color:#8fa3b8">模式 C 只铺这些点，不会再铺全校。</span>';
+    }else{
+      msg = (plan && plan.error) ? ('求解失败：'+plan.error) : '请稍候…';
+    }
+    empty.innerHTML = msg;
+    document.getElementById('s_bld').textContent='—';
+    document.getElementById('s_net').textContent='—';
+    document.getElementById('s_mst').textContent='—';
+    document.getElementById('s_pipe').textContent='—';
+    document.getElementById('s_dem').textContent='—';
+    document.getElementById('s_q').textContent='—';
+    document.getElementById('s_dn').textContent='—';
+    document.getElementById('s_cost').textContent='—';
+    document.getElementById('s_svc').textContent='—';
+    document.getElementById('s_src').textContent='—';
+    document.getElementById('cmp').innerHTML='';
+    document.getElementById('legend').innerHTML='';
+    document.getElementById('srcWrap').innerHTML='';
+    updateBadge();
+    return;
+  }
+  empty.style.display='none';
+
+  const nEx = (mode==='B') ? excluded.size : 0;
+  const nPool = (mode==='C') ? cTargets.length : (45-nEx);
+  document.getElementById('s_bld').textContent = nPool + ' / ' + st.n_targets;
+  const P = plan.graph;
+  document.getElementById('s_net').textContent = plan.pipes.length+' / '+P.order.length+' / '+P.edges.filter(e=>!e.dead).length;
+  document.getElementById('s_mst').textContent = fmt(st.mst_length_m,1)+' m';
+  document.getElementById('s_pipe').textContent = fmt(st.pipe_length_m,1)+' m';
+  document.getElementById('s_dem').textContent = fmt(st.total_demand_m3d*param.water,1)+' m³/d';
+  const qLs = st.total_demand_lpd*param.water/86400*param.kh;
+  document.getElementById('s_q').textContent = fmt(qLs,2)+' L/s';
+  document.getElementById('s_dn').textContent = 'DN'+EN.pickDN(qLs, param.v);
+  document.getElementById('s_cost').textContent = fmt(st.cost_yuan*param.price/10000,1)+' 万元';
+  document.getElementById('s_svc').textContent = plan.items.length+' 处';
+  document.getElementById('s_src').textContent = plan.source.name;
+
+  // 方案对比
+  const cmp=document.getElementById('cmp');
+  const starLen = plan.items.reduce((s,it)=>{
+    const row = plan._dist && plan._dist[plan.source.key];
+    const v = row ? row[it.nid] : 0;
+    return s + (isFinite(v)?v:0);
+  }, 0);
+  const mst = st.mst_length_m;
+  cmp.innerHTML = [
+    ['沿路网 MST（当前方案）', mst, '1.00×'],
+    ['星形（每点单引）', starLen, starLen? (starLen/mst).toFixed(2)+'×':'—']
+  ].map(([k,v,x])=>`<div class="row"><span class="k">${k}</span><span class="v">${fmt(v,1)} m <span style="color:#5d7187">${x}</span></span></div>`).join('')
+    + `<div class="row"><span class="k">MST 比星形省</span><span class="v">${starLen? (100*(1-st.pipe_length_m/starLen)).toFixed(1)+'%':'—'}</span></div>`
+    + `<div class="row"><span class="k">最大树深</span><span class="v">${st.max_depth} 层</span></div>`;
+
+  // 起点比较
+  const sw=document.getElementById('srcWrap');
+  if(plan.srcRows && plan.srcRows.length){
+    sw.innerHTML='<table id="srcTable"><tr><td>候选起点</td><td>MST 总长</td></tr>'
+      + plan.srcRows.map(r=>`<tr class="${r.name===plan.source.name?'chosen':''}"><td>${r.name}</td><td>${isFinite(r.total)?fmt(r.total,1)+' m':'不可达'}</td></tr>`).join('')
+      + '</table>';
+  } else {
+    sw.innerHTML = '<div class="row"><span class="k">起点</span><span class="v">'+plan.source.name+'（手选）</span></div>'
+      + '<div class="row"><span class="k">吸附距离</span><span class="v">'+
+        fmt((plan.items[0]?0:0),1)+' 路网</span></div>';
+  }
+
+  // 图例
+  const dns=[...new Set(plan.pipes.map(p=>EN.pickDN(p.flow/86400*param.kh*param.water, param.v)))].sort((a,b)=>a-b);
+  document.getElementById('legend').innerHTML=dns.map(dn=>`<span><i style="background:${DN_COL[dn]}"></i>DN${dn}</span>`).join('')
+    +'<span style="grid-column:1/3;margin-top:4px"><i style="background:#eaffff"></i>水流（亮白点，沿管段流动）</span>';
+
+  updateBadge();
+  updateKeyBtnState();
+}
+
+function updateBadge(){
+  const names={A:'模式 A · 全校（默认起点）', B:'模式 B · 选点排除后重算', C:'模式 C · 自定起点 + 多终点'};
+  document.getElementById('modeBadge').textContent=names[mode];
+  const desc={
+    A:'<b>模式 A</b>：连接全校所有供水目标，起点沿用默认水源（南主门 / 7 号门），与主数据一致。',
+    B:'<b>模式 B</b>：点左侧编号把建筑移出方案，剩余建筑重新求全局最短铺设（起点在 5/6/7 号门中重新比选）。',
+    C:'<b>模式 C</b>：图上点 1 个起点，再点若干终点，<b>只铺这些点</b>（不是全校）。<br>点在楼上=那栋楼作终点（带用水量）；点空地=路网任意接入点。'
+  };
+  document.getElementById('modeDesc').innerHTML=desc[mode];
+  document.getElementById('hint').textContent = ({
+    A:'模式 A · 点“模式 B”可按编号排除建筑；点右上角进矩阵演示',
+    B:'模式 B · 左侧点编号切换“排除/纳入”，方案即时重算',
+    C: (cSource && !cTargets.length)
+        ? '模式 C · 起点已定，现在点终点（点楼=选址那栋楼，可多个）'
+        : '模式 C · 只铺你点的点：先点起点，再逐个点终点'
+  })[mode];
+}
+
+function updateKeyBtnState(){
+  const b=document.getElementById('btn-c-src');
+  if(!b) return;
+  b.textContent = cStep==='source' ? '正在点：起点 '+ (cSource?'✔':'1 / 1') : '正在点：终点（可多个）';
+  b.classList.toggle('on', cStep==='source');
+}
+
+// ---------- 模式 B：编号按钮 ----------
+function buildChips(){
+  const wrap=document.getElementById('bldPick');
+  const list=EN.targets({});
+  const byCat={};
+  list.forEach(t=>{ (byCat[t.cat]=byCat[t.cat]||[]).push(t); });
+  const order=['dorm','canteen','teaching','college','lab','library','office','activity','art','service','sports'];
+  let html='';
+  for(const cat of order){
+    const arr=byCat[cat]; if(!arr) continue;
+    html+='<div class="grp">'+(CAT_NAME[cat]||cat)+' · '+arr.length+'</div><div class="chips">'
+      + arr.map(t=>`<span class="chip" data-id="${t.id}" title="${t.name}">${t.id}</span>`).join('')
+      + '</div>';
+  }
+  wrap.innerHTML=html;
+  wrap.onclick=e=>{
+    const c=e.target.closest('.chip'); if(!c) return;
+    toggleExcluded(c.dataset.id);
+  };
+
+  // 模式 C 的快速终点按钮（同一份编号表，点了直接加/删终点）
+  const qw=document.getElementById('cQuickChips');
+  if(qw){
+    qw.innerHTML=list.map(t=>`<span class="chip" data-id="${t.id}" title="${t.name}">${t.id}</span>`).join('');
+    qw.onclick=e=>{
+      const c=e.target.closest('.chip'); if(!c) return;
+      toggleCTarget(c.dataset.id);
+    };
+  }
+  syncChips();
+}
+
+function toggleCTarget(id){
+  const i=cTargets.findIndex(t=>t.bid===id);
+  if(i>=0){
+    cTargets.splice(i,1);
+  }else{
+    const b=B.buildings.find(z=>z.id===id);
+    if(!b) return;
+    const [px,py]=proj(b.centroid?b.centroid[0]:b.lon, b.centroid?b.centroid[1]:b.lat);
+    cTargets.push({x:px, y:py, lon:b.lon, lat:b.lat, bid:b.id, label:b.short||b.name});
+    cStep='target';
+  }
+  renderCPick(); replan();
+  document.getElementById('cStatus').textContent =
+    cSource ? ('已选起点 + '+cTargets.length+' 个终点') : '等待点起点';
+}
+function syncChips(){
+  document.querySelectorAll('#bldPick .chip').forEach(c=>{
+    c.classList.toggle('ex', excluded.has(c.dataset.id));
+  });
+  // 模式 C 的快速终点按钮：已在方案里的高亮
+  const inC = new Set(cTargets.filter(t=>t.bid).map(t=>t.bid));
+  document.querySelectorAll('#cQuickChips .chip').forEach(c=>{
+    c.classList.toggle('on', inC.has(c.dataset.id));
+    c.style.background = inC.has(c.dataset.id) ? '#0e2a2a' : '';
+    c.style.borderColor = inC.has(c.dataset.id) ? '#26a69a' : '';
+    c.style.color = inC.has(c.dataset.id) ? '#4dd0e1' : '';
+  });
+  const n=excluded.size;
+  const remain=45-n;
+  const ps=document.getElementById('pickSummary');
+  if(!ps) return;
+  if(!n){
+    ps.innerHTML='已排除 <b>0</b> 栋 · 剩余 <b>45</b> 栋<br>（当前等同模式 A 的全校方案）';
+  }else if(remain<2){
+    ps.innerHTML='<span class="warn">已排除 '+n+' 栋，剩余不足 2 栋，无法生成管网</span>';
+  }else{
+    const cur = (plan&&plan.ok) ? fmt(plan.stats.mst_length_m,1)+' m' : '—';
+    ps.innerHTML='已排除 <b>'+n+'</b> 栋 · 剩余 <b>'+remain+'</b> 栋<br>当前方案 MST：<b>'+cur+'</b>';
+  }
+}
+function toggleExcluded(id){
+  if(excluded.has(id)) excluded.delete(id); else excluded.add(id);
+  syncChips();
+  replan();
+}
+
+// ---------- 模式切换 ----------
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('#modeBar button').forEach(b=>b.classList.toggle('on', b.dataset.mode===m));
+  document.getElementById('blockB').style.display = (m==='B')?'block':'none';
+  document.getElementById('blockC').style.display = (m==='C')?'block':'none';
+  // 从别的模式切进 C 时，清掉 A/B 里点出来的临时起点，避免“看着有起点其实没选”
+  if(m==='C' && prevMode!=='C'){ cSource=null; cTargets=[]; cStep='source'; renderCPick(); }
+  prevMode=m;
+  if(m==='C'){ cStep = cSource ? 'target' : 'source'; }
+  document.getElementById('cStatus').textContent = (m==='C')
+    ? (cSource? ('已选起点，'+(cTargets.length?cTargets.length+' 个终点':'可继续点终点')) : '等待点起点')
+    : '';
+  needFit=true;
+  replan();
+  syncChips();
+  updateKeyBtnState();
+}
+
+// ---------- 交互 ----------
+function svgPoint(evt){
+  const pt=svg.createSVGPoint(); pt.x=evt.clientX; pt.y=evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+let dragMoved=false;
+
+// 把屏幕坐标换算成 {lat,lon}：优先吸到附近的建筑（带编号与用水量），否则吸路网
+function pickAt(q){
+  const m=mat();
+  // 1) 先看有没有点在建筑轮廓上/附近
+  const lx=( m.d*q.x-m.c*q.y)/(m.a*m.d-m.b*m.c);
+  const ly=(-m.b*q.x+m.a*q.y)/(m.a*m.d-m.b*m.c);
+  let best=null;
+  for(const b of B.buildings){
+    if(!TARGET_CATS[b.cat]) continue;
+    const [bx,by]=proj(b.centroid ? b.centroid[0] : b.lon, b.centroid ? b.centroid[1] : b.lat);
+    const d=Math.hypot(lx-bx, ly-by);
+    if(!best||d<best.d) best={d,b,bx,by};
+  }
+  // 建筑中心 60 m 以内就算点中了这栋楼
+  if(best && best.d<60){
+    const b=best.b;
+    return {x:best.bx, y:best.by, lon:b.lon, lat:b.lat,
+            bid:b.id, label:b.short||b.name, isBuilding:true};
+  }
+  const sn=snapScreen(q.x,q.y);
+  if(!sn) return null;
+  return {x:sn.x, y:sn.y, lon:sn.lon, lat:sn.lat, bid:null, isBuilding:false};
+}
+
+svg.addEventListener('click',evt=>{
+  if(evt.target.closest && evt.target.closest('#detail')) return;
+  if(dragMoved){ dragMoved=false; return; }
+  const q=svgPoint(evt);
+  if(mode==='C'){
+    const p=pickAt(q);
+    if(!p) return;
+    if(cStep==='source'){
+      cSource={x:p.x, y:p.y, lon:p.lon, lat:p.lat, bid:p.bid, label:p.label};
+      cStep='target';
+      document.getElementById('cStatus').textContent='已选起点，可继续点终点';
+    }else{
+      // 同一位置不重复加入
+      if(cTargets.some(t=>Math.hypot(t.lat-p.lat, t.lon-p.lon)<1e-6)) return;
+      cTargets.push({x:p.x, y:p.y, lon:p.lon, lat:p.lat, bid:p.bid, label:p.label});
+      document.getElementById('cStatus').textContent='已选起点 + '+cTargets.length+' 个终点';
+    }
+    renderCPick();
+    replan();
+  }else{
+    // A/B 模式下点击=临时看一眼“以这里为起点的全局方案”
+    const sn=snapScreen(q.x,q.y);
+    if(!sn) return;
+    cSource={x:sn.x,y:sn.y,lon:sn.lon,lat:sn.lat};
+    const r = EN.plan({source:{lat:sn.lat,lon:sn.lon}, excluded:[...excluded],
+                       sourceName:'图上点选起点', extra:[]});
+    if(r && r.ok){
+      plan=r; updatePanel(); render(); syncLink();
+    }
+  }
+});
+
+function renderCPick(){
+  const w=document.getElementById('cPickWrap');
+  if(!cSource){ w.innerHTML=''; return; }
+  const srcTxt = cSource.bid ? ('楼 '+cSource.bid+' · '+cSource.label) : '路网任意点';
+  let h='<div class="row"><span class="k">起点</span><span class="v">'+srcTxt+'</span></div>'
+    + '<div class="row"><span class="k">起点坐标</span><span class="v">'
+    + cSource.lat.toFixed(6)+', '+cSource.lon.toFixed(6)+'</span></div>';
+  if(cTargets.length){
+    h+='<div class="row"><span class="k">终点数</span><span class="v">'+cTargets.length+'</span></div>';
+    h+='<table id="srcTable"><tr><td>#</td><td>终点</td><td></td></tr>'
+      + cTargets.map((t,i)=>{
+          const nm = t.bid ? (t.bid+' · '+t.label) : ('路网点 '+t.lat.toFixed(4)+','+t.lon.toFixed(4));
+          return `<tr><td>${i+1}</td><td>${nm}</td>
+            <td><span class="chip" data-del="${i}" style="padding:0 5px">×</span></td></tr>`;
+        }).join('')
+      + '</table>';
+  }else{
+    h+='<div class="row"><span class="k">终点</span><span class="v" style="color:#ffb300">还没点</span></div>';
+  }
+  w.innerHTML=h;
+  w.querySelectorAll('[data-del]').forEach(b=>{
+    b.onclick=()=>{ cTargets.splice(+b.dataset.del,1); renderCPick(); replan(); };
+  });
+}
+
+// 悬停明细
+function showBld(id){
+  const x=B.buildings.find(z=>z.id===id); if(!x) return;
+  const c=B.service_connections.find(z=>z.id===id)||{};
+  const inPlan = plan&&plan.ok && plan.items.some(it=>it.id===id);
+  const d=document.getElementById('detail');
+  d.innerHTML=`<h4>${x.short||x.name} <span style="color:#7d93a8;font-size:11px">${x.id}</span></h4>
+    <div class="r"><span>类别 / 层数</span><span>${CAT_NAME[x.cat]||x.cat} / ${x.levels} 层</span></div>
+    <div class="r"><span>基底 / 建筑面积</span><span>${fmt(x.area,0)} / ${fmt(x.floor_area,0)} m²</span></div>
+    <div class="r"><span>日用水量</span><span>${fmt(x.demand,0)} L/d</span></div>
+    <div class="r"><span>接户支管</span><span>${c.lateral_m!==undefined?c.lateral_m+' m':'—'}</span></div>
+    <div class="r"><span>接自道路</span><span>${c.road_name||c.road_hw||'—'}</span></div>
+    <div class="r"><span>几何来源</span><span>${x.src==='OSM'?'OSM 矢量':'影像量测'}</span></div>
+    <div class="r"><span>当前方案</span><span style="color:${inPlan?'#26a69a':'#ef5350'}">${inPlan?'已纳入':'未纳入'}</span></div>`;
+  d.style.display='block';
+}
+function showPipe(i){
+  const p=(plan&&plan.ok)?plan.pipes[+i]:null; if(!p) return;
+  const qq=p.flow/86400*param.kh*param.water;
+  const d=document.getElementById('detail');
+  d.innerHTML=`<h4>管段</h4>
+    <div class="r"><span>管径 / 层级</span><span>DN${EN.pickDN(qq,param.v)} / 第 ${p.order} 层</span></div>
+    <div class="r"><span>长度</span><span>${fmt(p.length,1)} m</span></div>
+    <div class="r"><span>输送水量</span><span>${fmt(p.flow,0)} L/d</span></div>
+    <div class="r"><span>设计流量</span><span>${fmt(p.flow/86400*param.kh,3)} L/s</span></div>`;
+  d.style.display='block';
+}
+svg.addEventListener('mouseover',evt=>{
+  const b=evt.target.getAttribute && evt.target.getAttribute('data-bld');
+  const pi=evt.target.getAttribute && evt.target.getAttribute('data-pipe');
+  if(b) showBld(b); else if(pi!==null&&pi!==undefined&&pi!=='') showPipe(pi);
+  else document.getElementById('detail').style.display='none';
+});
+svg.addEventListener('mouseout',()=>{ document.getElementById('detail').style.display='none'; });
+
+// 参数
+const pv={v:document.getElementById('pv_v'),kh:document.getElementById('pv_kh'),w:document.getElementById('pv_w'),c:document.getElementById('pv_c'),h:document.getElementById('pv_h')};
+function syncLabels(){
+  pv.v.textContent=param.v.toFixed(2)+' m/s';
+  pv.kh.textContent=param.kh.toFixed(1);
+  pv.w.textContent=param.water.toFixed(2);
+  pv.c.textContent=param.price.toFixed(2);
+  pv.h.textContent=param.level.toFixed(1);
+}
+for(const [id,key] of [['p_v','v'],['p_kh','kh'],['p_w','water'],['p_c','price'],['p_h','level']]){
+  document.getElementById(id).addEventListener('input',e=>{
+    param[key]=parseFloat(e.target.value); syncLabels();
+    updatePanel(); render();
+  });
+}
+document.getElementById('btn-reset').onclick=()=>{
+  param={v:1.0,kh:2.5,water:1.0,price:1.0,level:3.2};
+  document.getElementById('p_v').value=1; document.getElementById('p_kh').value=2.5;
+  document.getElementById('p_w').value=1; document.getElementById('p_c').value=1; document.getElementById('p_h').value=3.2;
+  syncLabels(); updatePanel(); render();
+};
+document.getElementById('btn-fit').onclick=()=>{ needFit=true; render(); };
+document.getElementById('btn-view').onclick=()=>{ view='iso';
+  document.getElementById('btn-view').classList.add('on');
+  document.getElementById('btn-plan').classList.remove('on'); needFit=true; render(); };
+document.getElementById('btn-plan').onclick=()=>{ view='plan';
+  document.getElementById('btn-plan').classList.add('on');
+  document.getElementById('btn-view').classList.remove('on'); needFit=true; render(); };
+document.getElementById('btn-grow').onclick=()=>{ animate=true; render(); setTimeout(()=>{animate=false;},2600); };
+document.getElementById('btn-flow').onclick=()=>{ flowOn=!flowOn; document.getElementById('btn-flow').classList.toggle('on',flowOn); render(); };
+document.getElementById('sel_base').onchange=e=>{ base=e.target.value; render(); };
+document.getElementById('btn-export').onclick=()=>{
+  if(!plan||!plan.ok){ alert('当前没有可导出的方案'); return; }
+  const txt=EN.matrixText(plan, [
+    '燕山大学西校区给水管道规划 · 无向图距离矩阵（当前页面方案）',
+    '模式：'+mode+'  ·  起点：'+plan.source.name,
+    '目标数：'+plan.items.length+'（'+(mode==='B'?('已排除 '+([...excluded].join(',')||'无')):(mode==='C'?'模式 C 仅连所选终点':'全校'))+'）',
+    '生成：'+new Date().toLocaleString('zh-CN')
+  ]);
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='graph_matrix_'+mode+'_N'+plan.labels.length+'.txt';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+};
+
+// 模式栏
+document.querySelectorAll('#modeBar button').forEach(b=>{
+  b.onclick=()=>setMode(b.dataset.mode);
+});
+// 模式 B 快捷按钮
+document.getElementById('btn-b-none').onclick=()=>{ excluded.clear(); syncChips(); replan(); };
+document.getElementById('btn-b-invert').onclick=()=>{
+  const all=EN.targets({}).map(t=>t.id);
+  const next=new Set();
+  all.forEach(id=>{ if(!excluded.has(id)) next.add(id); });
+  excluded=next; syncChips(); replan();
+};
+document.querySelectorAll('#btn-b-type').forEach(b=>{
+  b.onclick=()=>{
+    const type=b.dataset.type;
+    const ids=EN.targets({}).filter(t=>t.cat===type).map(t=>t.id);
+    const allIn = ids.every(id=>excluded.has(id));
+    ids.forEach(id=>{ if(allIn) excluded.delete(id); else excluded.add(id); });
+    syncChips(); replan();
+  };
+});
+// 模式 C 按钮
+document.getElementById('btn-c-src').onclick=()=>{ cStep='source'; updateKeyBtnState(); };
+document.getElementById('btn-c-undo').onclick=()=>{
+  if(cTargets.length){ cTargets.pop(); }
+  else if(cSource){ cSource=null; cStep='source'; }
+  renderCPick(); replan();
+};
+document.getElementById('btn-c-clr').onclick=()=>{
+  cSource=null; cTargets=[]; cStep='source'; renderCPick(); replan();
+};
+
+// 缩放 / 平移
+svg.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const f=Math.exp(e.deltaY*0.0012);
+  const cx=vb.x+vb.w/2, cy=vb.y+vb.h/2;
+  vb.w*=f; vb.h*=f; vb.x=cx-vb.w/2; vb.y=cy-vb.h/2;
+  svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+},{passive:false});
+let drag=null;
+svg.addEventListener('mousedown',e=>{ drag={x:e.clientX,y:e.clientY,vx:vb.x,vy:vb.y}; dragMoved=false; });
+window.addEventListener('mousemove',e=>{
+  if(!drag) return;
+  const dx=e.clientX-drag.x, dy=e.clientY-drag.y;
+  if(Math.abs(dx)+Math.abs(dy)>4) dragMoved=true;
+  const sc=vb.w/svg.clientWidth;
+  vb.x=drag.vx-dx*sc; vb.y=drag.vy-dy*sc;
+  svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+});
+window.addEventListener('mouseup',()=>{ drag=null; });
+
+// ---------- init ----------
+document.getElementById('gen').textContent='数据生成 '+M.generated+' · 坐标 WGS-84 · 算法与主数据同口径';
+syncLabels(); fit(); buildChips(); setMode('A'); updateKeyBtnState();
+
+// URL hash: #mode=B&ex=D01,D02  或  #mode=C&src=lat,lon&ex2=lat,lon;lat,lon
+try{
+  const H=new URLSearchParams(location.hash.slice(1));
+  const mm=H.get('mode');
+  if(mm==='B'||mm==='C'||mm==='A'){
+    if(mm==='B' && H.get('ex')) H.get('ex').split(',').forEach(id=>excluded.add(id.trim()));
+    if(mm==='C'){
+      const s=H.get('src');
+      if(s){ const [la,lo]=s.split(',').map(Number); cSource={x:0,y:0,lon:lo,lat:la}; cStep='target'; }
+      const e2=H.get('ex2');
+      if(e2){ e2.split(';').forEach(q=>{
+        if(q.startsWith('B:')){
+          const b=B.buildings.find(z=>z.id===q.slice(2));
+          if(b){ const [px,py]=proj(b.centroid?b.centroid[0]:b.lon, b.centroid?b.centroid[1]:b.lat);
+            cTargets.push({x:px, y:py, lon:b.lon, lat:b.lat, bid:b.id, label:b.short||b.name}); }
+        }else{
+          const [la,lo]=q.split(',').map(Number);
+          if(isFinite(la)&&isFinite(lo)) cTargets.push({x:0,y:0,lon:lo,lat:la});
+        }
+      }); }
+    }
+    setMode(mm);
+  }
+  if(H.get('view')==='plan'){
+    view='plan';
+    document.getElementById('btn-plan').classList.add('on');
+    document.getElementById('btn-view').classList.remove('on');
+  }
+  if(H.get('base')){ base=H.get('base'); document.getElementById('sel_base').value=base; }
+  renderCPick(); replan();
+}catch(e){ console.warn('hash',e); }
+
+// 供外部测试/嵌入
+window.__planner={
+  get state(){ return {mode, excluded:[...excluded], src:plan&&plan.ok?plan.source:null,
+    targets:plan&&plan.ok?plan.stats.n_targets:0, mst:plan&&plan.ok?plan.stats.mst_length_m:null,
+    cSource: cSource?{lat:cSource.lat,lon:cSource.lon,bid:cSource.bid||null}:null,
+    cTargets: cTargets.map(t=>({bid:t.bid||null, lat:t.lat, lon:t.lon}))}; },
+  setMode,
+  exclude(id){ excluded.add(id); syncChips(); replan(); return this.state; },
+  include(id){ excluded.delete(id); syncChips(); replan(); return this.state; },
+  setSource(lat,lon){ cSource={x:0,y:0,lon,lat}; cStep='target'; renderCPick(); replan(); return this.state; },
+  addTarget(lat,lon){ cTargets.push({x:0,y:0,lon,lat}); renderCPick(); replan(); return this.state; },
+  addBuilding(id){ toggleCTarget(id); return this.state; },
+  clearC(){ cSource=null; cTargets=[]; cStep='source'; renderCPick(); replan(); return this.state; },
+  matrixText(){ return plan&&plan.ok ? EN.matrixText(plan,[]) : ''; },
+  get plan(){ return plan; }
+};
+})();
+</script>
+</body>
+</html>

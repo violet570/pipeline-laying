@@ -1,0 +1,1993 @@
+{
+ "checked_at": "2026-10-28T11:01:27.593Z",
+ "box": {
+  "s": 39.89,
+  "w": 119.49,
+  "n": 39.93,
+  "e": 119.55
+ },
+ "ok": [
+  {
+   "id": 117215115,
+   "status": "ok",
+   "lat": 39.901482,
+   "lon": 119.529798,
+   "name": "东校区中快餐厅",
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215120,
+   "status": "ok",
+   "lat": 39.901241,
+   "lon": 119.530247,
+   "name": "高钢中心",
+   "building": "university",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215175,
+   "status": "ok",
+   "lat": 39.900611,
+   "lon": 119.529569,
+   "name": "二舍",
+   "building": "dormitory",
+   "levels": null,
+   "npts": 13
+  },
+  {
+   "id": 117215183,
+   "status": "ok",
+   "lat": 39.90006,
+   "lon": 119.530155,
+   "name": "一舍",
+   "building": "dormitory",
+   "levels": null,
+   "npts": 13
+  },
+  {
+   "id": 117215193,
+   "status": "ok",
+   "lat": 39.899654,
+   "lon": 119.530657,
+   "name": "六舍",
+   "building": "dormitory",
+   "levels": "6",
+   "npts": 18
+  },
+  {
+   "id": 117215215,
+   "status": "ok",
+   "lat": 39.900372,
+   "lon": 119.531697,
+   "name": "东校区大学生活动中心",
+   "building": "university",
+   "levels": null,
+   "npts": 33
+  },
+  {
+   "id": 117215222,
+   "status": "ok",
+   "lat": 39.900885,
+   "lon": 119.530551,
+   "name": "东校区生活服务楼",
+   "building": "yes",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 117215232,
+   "status": "ok",
+   "lat": 39.904838,
+   "lon": 119.533602,
+   "name": "第二教学楼",
+   "building": "university",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215258,
+   "status": "ok",
+   "lat": 39.901163,
+   "lon": 119.528998,
+   "name": "三舍",
+   "building": "dormitory",
+   "levels": null,
+   "npts": 13
+  },
+  {
+   "id": 117215293,
+   "status": "ok",
+   "lat": 39.904092,
+   "lon": 119.536957,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215305,
+   "status": "ok",
+   "lat": 39.904632,
+   "lon": 119.537097,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 12
+  },
+  {
+   "id": 117215311,
+   "status": "ok",
+   "lat": 39.904965,
+   "lon": 119.536908,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215317,
+   "status": "ok",
+   "lat": 39.903761,
+   "lon": 119.534931,
+   "name": "建筑馆",
+   "building": "university",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215324,
+   "status": "ok",
+   "lat": 39.902983,
+   "lon": 119.533786,
+   "name": "建筑馆",
+   "building": "university",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215338,
+   "status": "ok",
+   "lat": 39.903381,
+   "lon": 119.538732,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 117215339,
+   "status": "ok",
+   "lat": 39.903551,
+   "lon": 119.538775,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 6
+  },
+  {
+   "id": 117215343,
+   "status": "ok",
+   "lat": 39.903524,
+   "lon": 119.538954,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 6
+  },
+  {
+   "id": 117215345,
+   "status": "ok",
+   "lat": 39.904133,
+   "lon": 119.537823,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215349,
+   "status": "ok",
+   "lat": 39.903953,
+   "lon": 119.53731,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 117215353,
+   "status": "ok",
+   "lat": 39.902021,
+   "lon": 119.538029,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215357,
+   "status": "ok",
+   "lat": 39.901807,
+   "lon": 119.537492,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215362,
+   "status": "ok",
+   "lat": 39.902877,
+   "lon": 119.538001,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 8
+  },
+  {
+   "id": 117215365,
+   "status": "ok",
+   "lat": 39.90259,
+   "lon": 119.537571,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215368,
+   "status": "ok",
+   "lat": 39.903527,
+   "lon": 119.538551,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 6
+  },
+  {
+   "id": 117215389,
+   "status": "ok",
+   "lat": 39.902192,
+   "lon": 119.537102,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 117215397,
+   "status": "ok",
+   "lat": 39.90234,
+   "lon": 119.538053,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 117215413,
+   "status": "ok",
+   "lat": 39.901494,
+   "lon": 119.53989,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 13
+  },
+  {
+   "id": 117215423,
+   "status": "ok",
+   "lat": 39.901018,
+   "lon": 119.538427,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 13
+  },
+  {
+   "id": 117215430,
+   "status": "ok",
+   "lat": 39.900091,
+   "lon": 119.538155,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215435,
+   "status": "ok",
+   "lat": 39.899447,
+   "lon": 119.538505,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215456,
+   "status": "ok",
+   "lat": 39.900177,
+   "lon": 119.538604,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 13
+  },
+  {
+   "id": 117215478,
+   "status": "ok",
+   "lat": 39.901081,
+   "lon": 119.539103,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215487,
+   "status": "ok",
+   "lat": 39.899438,
+   "lon": 119.539203,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117215491,
+   "status": "ok",
+   "lat": 39.900125,
+   "lon": 119.540031,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 117215497,
+   "status": "ok",
+   "lat": 39.900329,
+   "lon": 119.539269,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 117217591,
+   "status": "ok",
+   "lat": 39.909889,
+   "lon": 119.533554,
+   "name": "体育馆",
+   "building": "university",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969788,
+   "status": "ok",
+   "lat": 39.924005,
+   "lon": 119.524146,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969794,
+   "status": "ok",
+   "lat": 39.923698,
+   "lon": 119.524403,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969795,
+   "status": "ok",
+   "lat": 39.92326,
+   "lon": 119.524324,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969796,
+   "status": "ok",
+   "lat": 39.923779,
+   "lon": 119.525107,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969797,
+   "status": "ok",
+   "lat": 39.924067,
+   "lon": 119.524905,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969801,
+   "status": "ok",
+   "lat": 39.924153,
+   "lon": 119.523761,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 121969802,
+   "status": "ok",
+   "lat": 39.92371,
+   "lon": 119.523695,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969803,
+   "status": "ok",
+   "lat": 39.923459,
+   "lon": 119.523963,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969814,
+   "status": "ok",
+   "lat": 39.922589,
+   "lon": 119.522628,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969815,
+   "status": "ok",
+   "lat": 39.922871,
+   "lon": 119.522324,
+   "name": null,
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969819,
+   "status": "ok",
+   "lat": 39.9222,
+   "lon": 119.522074,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969820,
+   "status": "ok",
+   "lat": 39.921866,
+   "lon": 119.521553,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969821,
+   "status": "ok",
+   "lat": 39.921603,
+   "lon": 119.521822,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969822,
+   "status": "ok",
+   "lat": 39.92193,
+   "lon": 119.522329,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969823,
+   "status": "ok",
+   "lat": 39.922305,
+   "lon": 119.52287,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969824,
+   "status": "ok",
+   "lat": 39.923171,
+   "lon": 119.52203,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969825,
+   "status": "ok",
+   "lat": 39.922712,
+   "lon": 119.520883,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969826,
+   "status": "ok",
+   "lat": 39.922377,
+   "lon": 119.52104,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969827,
+   "status": "ok",
+   "lat": 39.922087,
+   "lon": 119.52123,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969828,
+   "status": "ok",
+   "lat": 39.922424,
+   "lon": 119.521731,
+   "name": "青馨家园4区",
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969829,
+   "status": "ok",
+   "lat": 39.923906,
+   "lon": 119.52131,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969830,
+   "status": "ok",
+   "lat": 39.923536,
+   "lon": 119.5209,
+   "name": "青馨家园4区",
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969831,
+   "status": "ok",
+   "lat": 39.923503,
+   "lon": 119.520148,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969832,
+   "status": "ok",
+   "lat": 39.923032,
+   "lon": 119.520331,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969833,
+   "status": "ok",
+   "lat": 39.923383,
+   "lon": 119.521713,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969834,
+   "status": "ok",
+   "lat": 39.922403,
+   "lon": 119.526623,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 14
+  },
+  {
+   "id": 121969835,
+   "status": "ok",
+   "lat": 39.922642,
+   "lon": 119.527107,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 19
+  },
+  {
+   "id": 121969836,
+   "status": "ok",
+   "lat": 39.922324,
+   "lon": 119.527145,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 52
+  },
+  {
+   "id": 121969837,
+   "status": "ok",
+   "lat": 39.924065,
+   "lon": 119.520601,
+   "name": "青馨家园4区",
+   "building": "residential",
+   "levels": null,
+   "npts": 6
+  },
+  {
+   "id": 121969839,
+   "status": "ok",
+   "lat": 39.920751,
+   "lon": 119.528093,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 121969840,
+   "status": "ok",
+   "lat": 39.921074,
+   "lon": 119.52798,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 121969841,
+   "status": "ok",
+   "lat": 39.921423,
+   "lon": 119.527964,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 121969842,
+   "status": "ok",
+   "lat": 39.921726,
+   "lon": 119.52765,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 13
+  },
+  {
+   "id": 121969843,
+   "status": "ok",
+   "lat": 39.921981,
+   "lon": 119.527371,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 15
+  },
+  {
+   "id": 121969844,
+   "status": "ok",
+   "lat": 39.921597,
+   "lon": 119.526806,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969845,
+   "status": "ok",
+   "lat": 39.921425,
+   "lon": 119.526138,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 11
+  },
+  {
+   "id": 121969846,
+   "status": "ok",
+   "lat": 39.92114,
+   "lon": 119.526646,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 12
+  },
+  {
+   "id": 121969847,
+   "status": "ok",
+   "lat": 39.920834,
+   "lon": 119.526813,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 8
+  },
+  {
+   "id": 121969849,
+   "status": "ok",
+   "lat": 39.922526,
+   "lon": 119.52499,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969850,
+   "status": "ok",
+   "lat": 39.922272,
+   "lon": 119.525336,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969851,
+   "status": "ok",
+   "lat": 39.922186,
+   "lon": 119.525956,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969852,
+   "status": "ok",
+   "lat": 39.921969,
+   "lon": 119.525532,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 121969853,
+   "status": "ok",
+   "lat": 39.92172,
+   "lon": 119.525837,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 121969854,
+   "status": "ok",
+   "lat": 39.922941,
+   "lon": 119.52701,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969855,
+   "status": "ok",
+   "lat": 39.922718,
+   "lon": 119.526024,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969856,
+   "status": "ok",
+   "lat": 39.922948,
+   "lon": 119.525635,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969857,
+   "status": "ok",
+   "lat": 39.923302,
+   "lon": 119.525419,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969858,
+   "status": "ok",
+   "lat": 39.922827,
+   "lon": 119.524733,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969859,
+   "status": "ok",
+   "lat": 39.92413,
+   "lon": 119.527287,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969860,
+   "status": "ok",
+   "lat": 39.923742,
+   "lon": 119.527235,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969861,
+   "status": "ok",
+   "lat": 39.923786,
+   "lon": 119.526353,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969862,
+   "status": "ok",
+   "lat": 39.923333,
+   "lon": 119.526357,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 121969863,
+   "status": "ok",
+   "lat": 39.923346,
+   "lon": 119.527173,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022630,
+   "status": "ok",
+   "lat": 39.906878,
+   "lon": 119.537222,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022631,
+   "status": "ok",
+   "lat": 39.906901,
+   "lon": 119.536357,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022632,
+   "status": "ok",
+   "lat": 39.906598,
+   "lon": 119.536299,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022633,
+   "status": "ok",
+   "lat": 39.90628,
+   "lon": 119.536354,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022634,
+   "status": "ok",
+   "lat": 39.906009,
+   "lon": 119.536277,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022635,
+   "status": "ok",
+   "lat": 39.905634,
+   "lon": 119.536244,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 21
+  },
+  {
+   "id": 122022636,
+   "status": "ok",
+   "lat": 39.905601,
+   "lon": 119.537016,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022637,
+   "status": "ok",
+   "lat": 39.905916,
+   "lon": 119.537123,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022639,
+   "status": "ok",
+   "lat": 39.906243,
+   "lon": 119.537173,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022640,
+   "status": "ok",
+   "lat": 39.906553,
+   "lon": 119.537253,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022643,
+   "status": "ok",
+   "lat": 39.905735,
+   "lon": 119.534746,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022647,
+   "status": "ok",
+   "lat": 39.90602,
+   "lon": 119.534908,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022654,
+   "status": "ok",
+   "lat": 39.905992,
+   "lon": 119.535367,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 122022656,
+   "status": "ok",
+   "lat": 39.906278,
+   "lon": 119.535444,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 122022657,
+   "status": "ok",
+   "lat": 39.906342,
+   "lon": 119.53576,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 122022659,
+   "status": "ok",
+   "lat": 39.90662,
+   "lon": 119.53561,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022662,
+   "status": "ok",
+   "lat": 39.906627,
+   "lon": 119.53502,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022663,
+   "status": "ok",
+   "lat": 39.906287,
+   "lon": 119.534176,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022664,
+   "status": "ok",
+   "lat": 39.906321,
+   "lon": 119.53497,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022665,
+   "status": "ok",
+   "lat": 39.906066,
+   "lon": 119.533594,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022666,
+   "status": "ok",
+   "lat": 39.906789,
+   "lon": 119.533608,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022667,
+   "status": "ok",
+   "lat": 39.906997,
+   "lon": 119.534245,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022668,
+   "status": "ok",
+   "lat": 39.906616,
+   "lon": 119.534158,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022669,
+   "status": "ok",
+   "lat": 39.906939,
+   "lon": 119.534945,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022670,
+   "status": "ok",
+   "lat": 39.906918,
+   "lon": 119.535771,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022671,
+   "status": "ok",
+   "lat": 39.908289,
+   "lon": 119.534702,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022674,
+   "status": "ok",
+   "lat": 39.90842,
+   "lon": 119.535411,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022676,
+   "status": "ok",
+   "lat": 39.908731,
+   "lon": 119.535996,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022677,
+   "status": "ok",
+   "lat": 39.908853,
+   "lon": 119.534678,
+   "name": "教职工之家",
+   "building": "university",
+   "levels": null,
+   "npts": 32
+  },
+  {
+   "id": 122022678,
+   "status": "ok",
+   "lat": 39.906405,
+   "lon": 119.533564,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022780,
+   "status": "ok",
+   "lat": 39.900007,
+   "lon": 119.528165,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022782,
+   "status": "ok",
+   "lat": 39.899651,
+   "lon": 119.528537,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022786,
+   "status": "ok",
+   "lat": 39.899437,
+   "lon": 119.527533,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 122022788,
+   "status": "ok",
+   "lat": 39.899014,
+   "lon": 119.529209,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 12
+  },
+  {
+   "id": 122022795,
+   "status": "ok",
+   "lat": 39.900544,
+   "lon": 119.527137,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 15
+  },
+  {
+   "id": 122022797,
+   "status": "ok",
+   "lat": 39.900386,
+   "lon": 119.5278,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022798,
+   "status": "ok",
+   "lat": 39.900059,
+   "lon": 119.52703,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022810,
+   "status": "ok",
+   "lat": 39.903034,
+   "lon": 119.538694,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 7
+  },
+  {
+   "id": 122022813,
+   "status": "ok",
+   "lat": 39.907741,
+   "lon": 119.533688,
+   "name": "第四教学楼",
+   "building": "university",
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 122022815,
+   "status": "ok",
+   "lat": 39.919124,
+   "lon": 119.534127,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122022816,
+   "status": "ok",
+   "lat": 39.919464,
+   "lon": 119.533929,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122023248,
+   "status": "ok",
+   "lat": 39.907227,
+   "lon": 119.536329,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122023249,
+   "status": "ok",
+   "lat": 39.907539,
+   "lon": 119.536371,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122023250,
+   "status": "ok",
+   "lat": 39.907335,
+   "lon": 119.535295,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122023251,
+   "status": "ok",
+   "lat": 39.907639,
+   "lon": 119.53534,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122023252,
+   "status": "ok",
+   "lat": 39.907283,
+   "lon": 119.53405,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122023253,
+   "status": "ok",
+   "lat": 39.90721,
+   "lon": 119.537066,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 21
+  },
+  {
+   "id": 122027484,
+   "status": "ok",
+   "lat": 39.908908,
+   "lon": 119.537744,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027485,
+   "status": "ok",
+   "lat": 39.908619,
+   "lon": 119.537195,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027486,
+   "status": "ok",
+   "lat": 39.909249,
+   "lon": 119.538388,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027487,
+   "status": "ok",
+   "lat": 39.909483,
+   "lon": 119.538165,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027488,
+   "status": "ok",
+   "lat": 39.909028,
+   "lon": 119.538615,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027489,
+   "status": "ok",
+   "lat": 39.909775,
+   "lon": 119.537904,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027490,
+   "status": "ok",
+   "lat": 39.909445,
+   "lon": 119.537268,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027491,
+   "status": "ok",
+   "lat": 39.909144,
+   "lon": 119.536736,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027492,
+   "status": "ok",
+   "lat": 39.908875,
+   "lon": 119.536963,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027493,
+   "status": "ok",
+   "lat": 39.909165,
+   "lon": 119.5375,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027496,
+   "status": "ok",
+   "lat": 39.909394,
+   "lon": 119.536488,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027497,
+   "status": "ok",
+   "lat": 39.909671,
+   "lon": 119.537052,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122027498,
+   "status": "ok",
+   "lat": 39.910032,
+   "lon": 119.537688,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047460,
+   "status": "ok",
+   "lat": 39.923094,
+   "lon": 119.517915,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047461,
+   "status": "ok",
+   "lat": 39.923091,
+   "lon": 119.517142,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047462,
+   "status": "ok",
+   "lat": 39.923849,
+   "lon": 119.517078,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047463,
+   "status": "ok",
+   "lat": 39.923837,
+   "lon": 119.516351,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047464,
+   "status": "ok",
+   "lat": 39.923471,
+   "lon": 119.516809,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047465,
+   "status": "ok",
+   "lat": 39.923465,
+   "lon": 119.517445,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047466,
+   "status": "ok",
+   "lat": 39.923471,
+   "lon": 119.518265,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047470,
+   "status": "ok",
+   "lat": 39.923863,
+   "lon": 119.51863,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122047471,
+   "status": "ok",
+   "lat": 39.923854,
+   "lon": 119.517772,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049765,
+   "status": "ok",
+   "lat": 39.921185,
+   "lon": 119.499164,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049833,
+   "status": "ok",
+   "lat": 39.923334,
+   "lon": 119.506416,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049836,
+   "status": "ok",
+   "lat": 39.922857,
+   "lon": 119.5036,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049838,
+   "status": "ok",
+   "lat": 39.922616,
+   "lon": 119.501869,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049842,
+   "status": "ok",
+   "lat": 39.922217,
+   "lon": 119.502268,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049846,
+   "status": "ok",
+   "lat": 39.921777,
+   "lon": 119.501204,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049875,
+   "status": "ok",
+   "lat": 39.923672,
+   "lon": 119.506099,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 122049915,
+   "status": "ok",
+   "lat": 39.92431,
+   "lon": 119.510898,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 11
+  },
+  {
+   "id": 122049917,
+   "status": "ok",
+   "lat": 39.923779,
+   "lon": 119.509004,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 366449196,
+   "status": "ok",
+   "lat": 39.904456,
+   "lon": 119.539976,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 366449222,
+   "status": "ok",
+   "lat": 39.903601,
+   "lon": 119.539703,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 366449234,
+   "status": "ok",
+   "lat": 39.90329,
+   "lon": 119.53991,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 366449300,
+   "status": "ok",
+   "lat": 39.902973,
+   "lon": 119.540134,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 366449610,
+   "status": "ok",
+   "lat": 39.903867,
+   "lon": 119.540149,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117095,
+   "status": "ok",
+   "lat": 39.922108,
+   "lon": 119.518767,
+   "name": "曦城花语一期1栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117096,
+   "status": "ok",
+   "lat": 39.922751,
+   "lon": 119.51947,
+   "name": "曦城花语一期2栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117097,
+   "status": "ok",
+   "lat": 39.921712,
+   "lon": 119.519027,
+   "name": "曦城花语一期3栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117098,
+   "status": "ok",
+   "lat": 39.922096,
+   "lon": 119.519548,
+   "name": "曦城花语一期4栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117099,
+   "status": "ok",
+   "lat": 39.922484,
+   "lon": 119.520076,
+   "name": "曦城花语一期5栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117100,
+   "status": "ok",
+   "lat": 39.921472,
+   "lon": 119.51934,
+   "name": "曦城花语一期6栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117101,
+   "status": "ok",
+   "lat": 39.921877,
+   "lon": 119.519923,
+   "name": "曦城花语一期7栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117102,
+   "status": "ok",
+   "lat": 39.922196,
+   "lon": 119.520396,
+   "name": "曦城花语一期8栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117103,
+   "status": "ok",
+   "lat": 39.92112,
+   "lon": 119.519604,
+   "name": "曦城花语一期9栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117104,
+   "status": "ok",
+   "lat": 39.921493,
+   "lon": 119.520187,
+   "name": "曦城花语一期10栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117105,
+   "status": "ok",
+   "lat": 39.921855,
+   "lon": 119.52066,
+   "name": "曦城花语一期11栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117106,
+   "status": "ok",
+   "lat": 39.920875,
+   "lon": 119.51984,
+   "name": "曦城花语一期12栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117107,
+   "status": "ok",
+   "lat": 39.921269,
+   "lon": 119.52041,
+   "name": "曦城花语一期13栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117108,
+   "status": "ok",
+   "lat": 39.921632,
+   "lon": 119.520951,
+   "name": "曦城花语一期14栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117110,
+   "status": "ok",
+   "lat": 39.921046,
+   "lon": 119.520674,
+   "name": "曦城花语一期16栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 509117111,
+   "status": "ok",
+   "lat": 39.921355,
+   "lon": 119.521201,
+   "name": "曦城花语一期17栋",
+   "building": "residential",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 957758167,
+   "status": "ok",
+   "lat": 39.907799,
+   "lon": 119.539794,
+   "name": "茂业中心",
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 1007568256,
+   "status": "ok",
+   "lat": 39.904024,
+   "lon": 119.533919,
+   "name": "第一教学楼",
+   "building": "university",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 1016792330,
+   "status": "ok",
+   "lat": 39.905632,
+   "lon": 119.53303,
+   "name": "燕翔车队",
+   "building": "garage",
+   "levels": "2",
+   "npts": 5
+  },
+  {
+   "id": 1016792331,
+   "status": "ok",
+   "lat": 39.905404,
+   "lon": 119.533111,
+   "name": "车辆与能源学院实验室",
+   "building": "university",
+   "levels": null,
+   "npts": 5
+  },
+  {
+   "id": 1512894535,
+   "status": "ok",
+   "lat": 39.923306,
+   "lon": 119.540163,
+   "name": null,
+   "building": "yes",
+   "levels": null,
+   "npts": 5
+  }
+ ],
+ "bad": [
+  {
+   "id": 1620606,
+   "status": "missing"
+  },
+  {
+   "id": 1620651,
+   "status": "missing"
+  },
+  {
+   "id": 1620652,
+   "status": "missing"
+  },
+  {
+   "id": 9473738,
+   "status": "missing"
+  },
+  {
+   "id": 9473739,
+   "status": "missing"
+  },
+  {
+   "id": 9676079,
+   "status": "OUT_OF_AREA",
+   "lat": 46.357456,
+   "lon": -101.921238,
+   "name": "72nd Avenue Southwest",
+   "building": null,
+   "levels": null,
+   "npts": 49
+  },
+  {
+   "id": 9676180,
+   "status": "OUT_OF_AREA",
+   "lat": 46.556375,
+   "lon": -101.830798,
+   "name": null,
+   "building": null,
+   "levels": null,
+   "npts": 9
+  },
+  {
+   "id": 9680716,
+   "status": "OUT_OF_AREA",
+   "lat": 46.612461,
+   "lon": -102.582471,
+   "name": null,
+   "building": null,
+   "levels": null,
+   "npts": 11
+  }
+ ]
+}

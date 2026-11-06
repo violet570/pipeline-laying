@@ -1,0 +1,27 @@
+[
+  {
+    "name": "buildings",
+    "elements": 103,
+    "bytes": 65228
+  },
+  {
+    "name": "roads",
+    "elements": 157,
+    "bytes": 88601
+  },
+  {
+    "name": "areas",
+    "elements": 95,
+    "bytes": 59948
+  },
+  {
+    "name": "pois",
+    "elements": 31,
+    "bytes": 5194
+  },
+  {
+    "name": "campus_boundary",
+    "elements": 2,
+    "bytes": 4363
+  }
+]

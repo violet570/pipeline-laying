@@ -1,0 +1,821 @@
+{
+ "checked_at": "2026-11-01",
+ "method": "offline: 04_数据/raw/buildings.json snapshot (Overpass unavailable)",
+ "box": {
+  "s": 39.89,
+  "w": 119.49,
+  "n": 39.93,
+  "e": 119.55
+ },
+ "n_registry_ways": 67,
+ "n_ok": 67,
+ "n_bad": 0,
+ "duplicate_refs": {},
+ "bad": [],
+ "rows": [
+  {
+   "id": 682903087,
+   "status": "ok",
+   "groups": [
+    "P01"
+   ],
+   "lat": 39.905177,
+   "lon": 119.519275,
+   "building": "university",
+   "name": "办公楼",
+   "levels": null
+  },
+  {
+   "id": 682903088,
+   "status": "ok",
+   "groups": [
+    "P02"
+   ],
+   "lat": 39.903393,
+   "lon": 119.519515,
+   "building": "university",
+   "name": "西校区大学生活动中心",
+   "levels": null
+  },
+  {
+   "id": 682903089,
+   "status": "ok",
+   "groups": [
+    "T06"
+   ],
+   "lat": 39.905039,
+   "lon": 119.522121,
+   "building": "university",
+   "name": "里仁教学楼",
+   "levels": null
+  },
+  {
+   "id": 696182821,
+   "status": "ok",
+   "groups": [
+    "U02"
+   ],
+   "lat": 39.906643,
+   "lon": 119.514295,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696182822,
+   "status": "ok",
+   "groups": [
+    "D07"
+   ],
+   "lat": 39.906602,
+   "lon": 119.513138,
+   "building": "dormitory",
+   "name": "7-B",
+   "levels": null
+  },
+  {
+   "id": 696182823,
+   "status": "ok",
+   "groups": [
+    "D07"
+   ],
+   "lat": 39.906217,
+   "lon": 119.513144,
+   "building": "dormitory",
+   "name": "7-A",
+   "levels": null
+  },
+  {
+   "id": 696182824,
+   "status": "ok",
+   "groups": [
+    "U03"
+   ],
+   "lat": 39.906464,
+   "lon": 119.513779,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696195041,
+   "status": "ok",
+   "groups": [
+    "D10"
+   ],
+   "lat": 39.908251,
+   "lon": 119.511733,
+   "building": "dormitory",
+   "name": "10-A",
+   "levels": null
+  },
+  {
+   "id": 696195042,
+   "status": "ok",
+   "groups": [
+    "D06"
+   ],
+   "lat": 39.905427,
+   "lon": 119.513523,
+   "building": "university",
+   "name": "6-A",
+   "levels": null
+  },
+  {
+   "id": 696195043,
+   "status": "ok",
+   "groups": [
+    "D11"
+   ],
+   "lat": 39.909146,
+   "lon": 119.511732,
+   "building": "dormitory",
+   "name": "11-A",
+   "levels": null
+  },
+  {
+   "id": 696195044,
+   "status": "ok",
+   "groups": [
+    "D10"
+   ],
+   "lat": 39.9087,
+   "lon": 119.511738,
+   "building": "dormitory",
+   "name": "10-B",
+   "levels": null
+  },
+  {
+   "id": 696195045,
+   "status": "ok",
+   "groups": [
+    "D11"
+   ],
+   "lat": 39.909593,
+   "lon": 119.511734,
+   "building": "dormitory",
+   "name": "11-B",
+   "levels": null
+  },
+  {
+   "id": 696195046,
+   "status": "ok",
+   "groups": [
+    "U04"
+   ],
+   "lat": 39.905608,
+   "lon": 119.513781,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696195049,
+   "status": "ok",
+   "groups": [
+    "D08"
+   ],
+   "lat": 39.907785,
+   "lon": 119.513085,
+   "building": "dormitory",
+   "name": "8-B",
+   "levels": null
+  },
+  {
+   "id": 696195050,
+   "status": "ok",
+   "groups": [
+    "D08"
+   ],
+   "lat": 39.907381,
+   "lon": 119.513075,
+   "building": "dormitory",
+   "name": "8-A",
+   "levels": null
+  },
+  {
+   "id": 696195052,
+   "status": "ok",
+   "groups": [
+    "D09"
+   ],
+   "lat": 39.90828,
+   "lon": 119.513075,
+   "building": "dormitory",
+   "name": "9-A",
+   "levels": null
+  },
+  {
+   "id": 696195053,
+   "status": "ok",
+   "groups": [
+    "U01"
+   ],
+   "lat": 39.908444,
+   "lon": 119.512172,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696195054,
+   "status": "ok",
+   "groups": [
+    "D06"
+   ],
+   "lat": 39.905778,
+   "lon": 119.513318,
+   "building": "dormitory",
+   "name": "6-B",
+   "levels": null
+  },
+  {
+   "id": 696195055,
+   "status": "ok",
+   "groups": [
+    "D04"
+   ],
+   "lat": 39.903761,
+   "lon": 119.515148,
+   "building": "dormitory",
+   "name": "4-A",
+   "levels": null
+  },
+  {
+   "id": 696195057,
+   "status": "ok",
+   "groups": [
+    "U05"
+   ],
+   "lat": 39.907351,
+   "lon": 119.511957,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696195058,
+   "status": "ok",
+   "groups": [
+    "D09"
+   ],
+   "lat": 39.90868,
+   "lon": 119.512962,
+   "building": "dormitory",
+   "name": "9-B",
+   "levels": null
+  },
+  {
+   "id": 696195059,
+   "status": "ok",
+   "groups": [
+    "U06"
+   ],
+   "lat": 39.909307,
+   "lon": 119.512168,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696195060,
+   "status": "ok",
+   "groups": [
+    "D04"
+   ],
+   "lat": 39.904156,
+   "lon": 119.514844,
+   "building": "dormitory",
+   "name": "4-B",
+   "levels": null
+  },
+  {
+   "id": 696199408,
+   "status": "ok",
+   "groups": [
+    "D02"
+   ],
+   "lat": 39.90445,
+   "lon": 119.516592,
+   "building": "dormitory",
+   "name": "2-A",
+   "levels": null
+  },
+  {
+   "id": 696199409,
+   "status": "ok",
+   "groups": [
+    "D03"
+   ],
+   "lat": 39.905251,
+   "lon": 119.516585,
+   "building": "dormitory",
+   "name": "3-A",
+   "levels": null
+  },
+  {
+   "id": 696199410,
+   "status": "ok",
+   "groups": [
+    "D01"
+   ],
+   "lat": 39.903755,
+   "lon": 119.516594,
+   "building": "dormitory",
+   "name": "1-B",
+   "levels": null
+  },
+  {
+   "id": 696199411,
+   "status": "ok",
+   "groups": [
+    "D02"
+   ],
+   "lat": 39.904846,
+   "lon": 119.516593,
+   "building": "dormitory",
+   "name": "2-B",
+   "levels": null
+  },
+  {
+   "id": 696199412,
+   "status": "ok",
+   "groups": [
+    "D03"
+   ],
+   "lat": 39.90564,
+   "lon": 119.516586,
+   "building": "dormitory",
+   "name": "3-B",
+   "levels": null
+  },
+  {
+   "id": 696199413,
+   "status": "ok",
+   "groups": [
+    "D01"
+   ],
+   "lat": 39.90336,
+   "lon": 119.516592,
+   "building": "dormitory",
+   "name": "1-A",
+   "levels": null
+  },
+  {
+   "id": 696278597,
+   "status": "ok",
+   "groups": [
+    "T10"
+   ],
+   "lat": 39.909967,
+   "lon": 119.514772,
+   "building": "university",
+   "name": "电气D楼",
+   "levels": "5"
+  },
+  {
+   "id": 696278598,
+   "status": "ok",
+   "groups": [
+    "T02"
+   ],
+   "lat": 39.909456,
+   "lon": 119.517156,
+   "building": "university",
+   "name": "第二教学楼",
+   "levels": null
+  },
+  {
+   "id": 696278599,
+   "status": "ok",
+   "groups": [
+    "T08"
+   ],
+   "lat": 39.908996,
+   "lon": 119.515702,
+   "building": "university",
+   "name": "电气B楼",
+   "levels": "5"
+  },
+  {
+   "id": 696278600,
+   "status": "ok",
+   "groups": [
+    "T03"
+   ],
+   "lat": 39.908936,
+   "lon": 119.517747,
+   "building": "university",
+   "name": "第三教学楼",
+   "levels": null
+  },
+  {
+   "id": 696278601,
+   "status": "ok",
+   "groups": [
+    "T12"
+   ],
+   "lat": 39.908055,
+   "lon": 119.516966,
+   "building": "university",
+   "name": "材料C楼",
+   "levels": "5"
+  },
+  {
+   "id": 696278602,
+   "status": "ok",
+   "groups": [
+    "T11"
+   ],
+   "lat": 39.90761,
+   "lon": 119.516962,
+   "building": "university",
+   "name": "材料B楼",
+   "levels": "5"
+  },
+  {
+   "id": 696278603,
+   "status": "ok",
+   "groups": [
+    "T01"
+   ],
+   "lat": 39.909973,
+   "lon": 119.516578,
+   "building": "university",
+   "name": "第一教学楼",
+   "levels": null
+  },
+  {
+   "id": 696278604,
+   "status": "ok",
+   "groups": [
+    "T04"
+   ],
+   "lat": 39.908512,
+   "lon": 119.518074,
+   "building": "university",
+   "name": "第四教学楼",
+   "levels": null
+  },
+  {
+   "id": 696279408,
+   "status": "ok",
+   "groups": [
+    "U07"
+   ],
+   "lat": 39.908427,
+   "lon": 119.512538,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696279409,
+   "status": "ok",
+   "groups": [
+    "U08"
+   ],
+   "lat": 39.907553,
+   "lon": 119.512551,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696279410,
+   "status": "ok",
+   "groups": [
+    "U09"
+   ],
+   "lat": 39.90478,
+   "lon": 119.515421,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696279411,
+   "status": "ok",
+   "groups": [
+    "U10"
+   ],
+   "lat": 39.903953,
+   "lon": 119.515411,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696279412,
+   "status": "ok",
+   "groups": [
+    "D05"
+   ],
+   "lat": 39.90497,
+   "lon": 119.514859,
+   "building": "dormitory",
+   "name": "5-B",
+   "levels": null
+  },
+  {
+   "id": 696279413,
+   "status": "ok",
+   "groups": [
+    "U11"
+   ],
+   "lat": 39.905511,
+   "lon": 119.517006,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696279414,
+   "status": "ok",
+   "groups": [
+    "U12"
+   ],
+   "lat": 39.904716,
+   "lon": 119.517003,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696279415,
+   "status": "ok",
+   "groups": [
+    "D05"
+   ],
+   "lat": 39.904579,
+   "lon": 119.514867,
+   "building": "dormitory",
+   "name": "5-A",
+   "levels": null
+  },
+  {
+   "id": 696279416,
+   "status": "ok",
+   "groups": [
+    "U13"
+   ],
+   "lat": 39.903611,
+   "lon": 119.517009,
+   "building": "university",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 696280901,
+   "status": "ok",
+   "groups": [
+    "T09"
+   ],
+   "lat": 39.90943,
+   "lon": 119.514646,
+   "building": "university",
+   "name": "电气C楼",
+   "levels": "5"
+  },
+  {
+   "id": 696280902,
+   "status": "ok",
+   "groups": [
+    "C02"
+   ],
+   "lat": 39.906505,
+   "lon": 119.51215,
+   "building": "university",
+   "name": "西校区服务楼",
+   "levels": "3"
+  },
+  {
+   "id": 696280903,
+   "status": "ok",
+   "groups": [
+    "T07"
+   ],
+   "lat": 39.908445,
+   "lon": 119.515591,
+   "building": "university",
+   "name": "电气A楼",
+   "levels": "5"
+  },
+  {
+   "id": 696280904,
+   "status": "ok",
+   "groups": [
+    "C01"
+   ],
+   "lat": 39.909437,
+   "lon": 119.512755,
+   "building": "university",
+   "name": "燕大西区燕园餐厅",
+   "levels": "3"
+  },
+  {
+   "id": 697150020,
+   "status": "ok",
+   "groups": [
+    "P03"
+   ],
+   "lat": 39.912617,
+   "lon": 119.513131,
+   "building": "university",
+   "name": "美术馆",
+   "levels": null
+  },
+  {
+   "id": 1226476365,
+   "status": "ok",
+   "groups": [
+    "T16"
+   ],
+   "lat": 39.908875,
+   "lon": 119.526734,
+   "building": "yes",
+   "name": "燕山大学图书馆",
+   "levels": null
+  },
+  {
+   "id": 1226476366,
+   "status": "ok",
+   "groups": [
+    "T05"
+   ],
+   "lat": 39.913138,
+   "lon": 119.515677,
+   "building": "university",
+   "name": "经管楼（第五教学楼）",
+   "levels": "5"
+  },
+  {
+   "id": 1226476367,
+   "status": "ok",
+   "groups": [
+    "D12"
+   ],
+   "lat": 39.909536,
+   "lon": 119.510247,
+   "building": "dormitory",
+   "name": "12-B1",
+   "levels": null
+  },
+  {
+   "id": 1226476368,
+   "status": "ok",
+   "groups": [
+    "D12"
+   ],
+   "lat": 39.909485,
+   "lon": 119.509636,
+   "building": "dormitory",
+   "name": "12-B2",
+   "levels": null
+  },
+  {
+   "id": 1226476369,
+   "status": "ok",
+   "groups": [
+    "D12"
+   ],
+   "lat": 39.909091,
+   "lon": 119.509624,
+   "building": "dormitory",
+   "name": "12-A2",
+   "levels": null
+  },
+  {
+   "id": 1226476370,
+   "status": "ok",
+   "groups": [
+    "D12"
+   ],
+   "lat": 39.909086,
+   "lon": 119.510228,
+   "building": "dormitory",
+   "name": "12-A1",
+   "levels": null
+  },
+  {
+   "id": 1226476371,
+   "status": "ok",
+   "groups": [
+    "D13"
+   ],
+   "lat": 39.909983,
+   "lon": 119.510228,
+   "building": "dormitory",
+   "name": "13-A1",
+   "levels": null
+  },
+  {
+   "id": 1226476372,
+   "status": "ok",
+   "groups": [
+    "D13"
+   ],
+   "lat": 39.909998,
+   "lon": 119.509637,
+   "building": "dormitory",
+   "name": "13-A2",
+   "levels": null
+  },
+  {
+   "id": 1226476373,
+   "status": "ok",
+   "groups": [
+    "D13"
+   ],
+   "lat": 39.910389,
+   "lon": 119.509624,
+   "building": "dormitory",
+   "name": "13-B2",
+   "levels": null
+  },
+  {
+   "id": 1226476374,
+   "status": "ok",
+   "groups": [
+    "D13"
+   ],
+   "lat": 39.910423,
+   "lon": 119.510235,
+   "building": "dormitory",
+   "name": "13-B1",
+   "levels": null
+  },
+  {
+   "id": 1226483925,
+   "status": "ok",
+   "groups": [
+    "T13"
+   ],
+   "lat": 39.903263,
+   "lon": 119.520984,
+   "building": "university",
+   "name": "高压科学中心",
+   "levels": null
+  },
+  {
+   "id": 1226592981,
+   "status": "ok",
+   "groups": [
+    "P04"
+   ],
+   "lat": 39.90748,
+   "lon": 119.511748,
+   "building": "yes",
+   "name": "国家电网燕山大学变电站",
+   "levels": null
+  },
+  {
+   "id": 1226592983,
+   "status": "ok",
+   "groups": [
+    "U14"
+   ],
+   "lat": 39.903056,
+   "lon": 119.516172,
+   "building": "yes",
+   "name": null,
+   "levels": null
+  },
+  {
+   "id": 1226592986,
+   "status": "ok",
+   "groups": [
+    "U15"
+   ],
+   "lat": 39.907532,
+   "lon": 119.519617,
+   "building": "yes",
+   "name": "实验室废物暂存处",
+   "levels": null
+  },
+  {
+   "id": 1317102814,
+   "status": "ok",
+   "groups": [
+    "T15"
+   ],
+   "lat": 39.914946,
+   "lon": 119.516809,
+   "building": "yes",
+   "name": "西里西亚智能科学与工程学院",
+   "levels": null
+  },
+  {
+   "id": 1317102815,
+   "status": "ok",
+   "groups": [
+    "T14"
+   ],
+   "lat": 39.91477,
+   "lon": 119.516379,
+   "building": "yes",
+   "name": "国际教育学院（欧洲学院）",
+   "levels": null
+  }
+ ]
+}
